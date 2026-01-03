@@ -1,0 +1,98 @@
+[
+    {
+        "id": 1,
+        "title": "FRC Competition Robot 2025",
+        "description": "Leading team design and build of competition robot for FIRST Robotics Competition. Featured innovative mechanisms and autonomous navigation systems.",
+        "year": "2025",
+        "image": null,
+        "links": {
+            "github": null,
+            "demo": null,
+            "website": null
+        }
+    },
+    {
+        "id": 2,
+        "title": "Haunted House Experience",
+        "description": "Seasonal immersive horror experience with custom animatronics, lighting effects, and interactive scares blending technology with theatrical design.",
+        "year": "2024",
+        "image": null,
+        "links": {
+            "github": null,
+            "demo": "#",
+            "website": "#"
+        }
+    },
+    {
+        "id": 3,
+        "title": "Custom 3D Printed Mechanisms",
+        "description": "Collection of functional mechanical parts and artistic pieces, ranging from robot components to sculptures, exploring form and function.",
+        "year": "2024",
+        "image": null,
+        "links": {
+            "github": null,
+            "demo": null,
+            "website": null
+        }
+    },
+    {
+        "id": 4,
+        "title": "Music Composition Portfolio",
+        "description": "Original musical compositions blending electronic and organic sounds across different genres and moods.",
+        "year": "2023-2025",
+        "image": null,
+        "links": {
+            "github": null,
+            "demo": null,
+            "website": null
+        }
+    },
+    {
+        "id": 5,
+        "title": "FRC Practice Robot Systems",
+        "description": "Prototyping and testing platform for mechanism validation and driver practice, enabling parallel development with competition robot.",
+        "year": "2024",
+        "image": null,
+        "links": {
+            "github": null,
+            "demo": null,
+            "website": null
+        }
+    },
+    {
+        "id": 6,
+        "title": "Automated Prop Controllers",
+        "description": "Network of Arduino-based controllers orchestrating complex, multi-prop sequences in haunted house with wireless synchronization.",
+        "year": "2024",
+        "image": null,
+        "links": {
+            "github": "#",
+            "demo": null,
+            "website": null
+        }
+    },
+    {
+        "id": 7,
+        "title": "CAD Model Library",
+        "description": "Comprehensive library of parametric CAD models for common FRC mechanisms, enabling rapid design iteration and team knowledge sharing.",
+        "year": "2023-2025",
+        "image": null,
+        "links": {
+            "github": null,
+            "demo": null,
+            "website": null
+        }
+    },
+    {
+        "id": 8,
+        "title": "Interactive Portfolio Website",
+        "description": "Personal portfolio with cosmic theme, smooth animations, and easy project management system to showcase diverse creative work.",
+        "year": "2026",
+        "image": null,
+        "links": {
+            "github": "#",
+            "demo": "#",
+            "website": null
+        }
+    }
+]
