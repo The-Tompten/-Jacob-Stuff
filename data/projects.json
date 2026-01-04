@@ -5,7 +5,7 @@
         "description": "Me and a close friend entered a lego design contest where we built a city scape out of lego and rokenbok pieces. It had a Rockenblock monorail!",
         "year": "2024",
         "age": 9,
-        "image": "assets/photos/legos.jpg",
+        "image": "assets/Photos/Legos.jpg",
         "links": [
             {
                 "title": "Website",
@@ -19,7 +19,7 @@
         "description": "During covid I enrolled in Mark Rober's invention curriculum where I created a machine that softens butter to room temperature in 4% of the time it normally takes for making cookies.",
         "year": "2020-21",
         "age": "10",
-        "image": "assets/photos/buttersauna.jpg",
+        "image": "assets/Photos/ButterSauna.jpg",
         "links": [
             {
                 "title": "Photos",
@@ -84,7 +84,7 @@
         "description": "I designed and developed the website for FRC Team 1729 Inconceivable, showcasing our team’s achievements, projects, and values.",
         "year": "2025",
         "age": 15,
-        "image": "assets/photos/website.jpg",
+        "image": "assets/Photos/Website.jpg",
         "links": [
             {
                 "title": "Site",
