@@ -1,98 +1,95 @@
 [
-    {
+     {
         "id": 1,
-        "title": "FRC Competition Robot 2025",
-        "description": "Leading team design and build of competition robot for FIRST Robotics Competition. Featured innovative mechanisms and autonomous navigation systems.",
-        "year": "2025",
-        "image": null,
-        "links": {
-            "github": null,
-            "demo": null,
-            "website": null
-        }
+        "title": "Lego (+ Rokenbok) Design Competition",
+        "description": "Me and a close friend entered a lego design contest where we built a city scape out of lego and rokenbok pieces. It had a Rockenblock monorail!",
+        "year": "2024",
+        "age": 9,
+        "image": "assets/photos/legos.jpg",
+        "links": [
+            {
+                "title": "Website",
+                "url": "https://www.brattleboromuseum.org/2020/10/07/13th-annual-lego-contest-exhibit/"
+            }
+        ]
     },
     {
         "id": 2,
-        "title": "Haunted House Experience",
-        "description": "Seasonal immersive horror experience with custom animatronics, lighting effects, and interactive scares blending technology with theatrical design.",
-        "year": "2024",
-        "image": null,
-        "links": {
-            "github": null,
-            "demo": "#",
-            "website": "#"
-        }
+        "title": "My First Invention: The Butter-Sauna",
+        "description": "During covid I enrolled in Mark Rober's invention curriculum where I created a machine that softens butter to room temperature in 4% of the time it normally takes for making cookies.",
+        "year": "2020-21",
+        "age": "10",
+        "image": "assets/photos/buttersauna.jpg",
+        "links": [
+            {
+                "title": "Photos",
+                "url": "https://photos.app.goo.gl/taLaJy8MJguZrdcU7"
+            }
+        ]
     },
+   
     {
         "id": 3,
         "title": "Custom 3D Printed Mechanisms",
         "description": "Collection of functional mechanical parts and artistic pieces, ranging from robot components to sculptures, exploring form and function.",
         "year": "2024",
+        "age": null,
         "image": null,
-        "links": {
-            "github": null,
-            "demo": null,
-            "website": null
-        }
+        "links": []
     },
     {
         "id": 4,
         "title": "Music Composition Portfolio",
         "description": "Original musical compositions blending electronic and organic sounds across different genres and moods.",
         "year": "2023-2025",
+        "age": null,
         "image": null,
-        "links": {
-            "github": null,
-            "demo": null,
-            "website": null
-        }
+        "links": []
     },
     {
         "id": 5,
         "title": "FRC Practice Robot Systems",
         "description": "Prototyping and testing platform for mechanism validation and driver practice, enabling parallel development with competition robot.",
         "year": "2024",
+        "age": null,
         "image": null,
-        "links": {
-            "github": null,
-            "demo": null,
-            "website": null
-        }
+        "links": []
     },
     {
         "id": 6,
         "title": "Automated Prop Controllers",
         "description": "Network of Arduino-based controllers orchestrating complex, multi-prop sequences in haunted house with wireless synchronization.",
         "year": "2024",
+        "age": null,
         "image": null,
-        "links": {
-            "github": "#",
-            "demo": null,
-            "website": null
-        }
+        "links": [
+            {
+                "title": "GitHub",
+                "url": "#"
+            }
+        ]
     },
     {
         "id": 7,
         "title": "CAD Model Library",
         "description": "Comprehensive library of parametric CAD models for common FRC mechanisms, enabling rapid design iteration and team knowledge sharing.",
         "year": "2023-2025",
+        "age": null,
         "image": null,
-        "links": {
-            "github": null,
-            "demo": null,
-            "website": null
-        }
+        "links": []
     },
     {
         "id": 8,
-        "title": "Interactive Portfolio Website",
-        "description": "Personal portfolio with cosmic theme, smooth animations, and easy project management system to showcase diverse creative work.",
-        "year": "2026",
-        "image": null,
-        "links": {
-            "github": "#",
-            "demo": "#",
-            "website": null
-        }
+        "title": "1729 Team Inconcievable Website",
+        "description": "I designed and developed the website for FRC Team 1729 Inconceivable, showcasing our team’s achievements, projects, and values.",
+        "year": "2025",
+        "age": 15,
+        "image": "assets/photos/website.jpg",
+        "links": [
+            {
+                "title": "Site",
+                "url": "https://www.team1729.org/"
+            }
+        ]
     }
 ]

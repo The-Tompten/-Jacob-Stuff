@@ -275,53 +275,78 @@ function displayProjects(projects) {
     const projectsGrid = document.getElementById('projects-grid');
     projectsGrid.innerHTML = '';
     
-    projects.forEach(project => {
+    // Reverse projects so newer ones (higher ID) show up first
+    const reversedProjects = [...projects].reverse();
+    
+    reversedProjects.forEach((project, index) => {
         const projectCard = document.createElement('div');
         projectCard.className = 'project-card';
         projectCard.setAttribute('data-aos', 'fade-up');
+        projectCard.style.cursor = 'pointer';
+        
+        // Hide projects after the first 3
+        if (index >= 3) {
+            projectCard.classList.add('hidden');
+        }
         
         projectCard.innerHTML = `
             <div class="project-image">
-                <div class="project-image-placeholder">
+                ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image-img">` : `<div class="project-image-placeholder">
                     ${getProjectIcon(project.title)}
-                </div>
+                </div>`}
             </div>
             <div class="project-content">
                 <div class="project-meta">
-                    <span class="project-year">${project.year}</span>
+                    <span class="project-year">${project.year}${project.age ? ` • Age ${project.age}` : ''}</span>
                 </div>
                 <h3 class="project-title">${project.title}</h3>
                 <p class="project-description">${project.description}</p>
                 <div class="project-links">
-                    ${project.links.github ? `<a href="${project.links.github}" class="project-link" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-                            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.164 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.137 20.161 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
-                        </svg>
-                        GitHub
-                    </a>` : ''}
-                    ${project.links.demo ? `<a href="${project.links.demo}" class="project-link" target="_blank" rel="noopener">
+                    ${project.links && project.links.length > 0 ? project.links.map(link => `<a href="${link.url}" class="project-link" target="_blank" rel="noopener">
                         <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                             <polyline points="15 3 21 3 21 9"/>
                             <line x1="10" y1="14" x2="21" y2="3"/>
                         </svg>
-                        Demo
-                    </a>` : ''}
-                    ${project.links.website ? `<a href="${project.links.website}" class="project-link" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                            <circle cx="12" cy="12" r="10"/>
-                            <line x1="2" y1="12" x2="22" y2="12"/>
-                            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
-                        </svg>
-                        Website
-                    </a>` : ''}
+                        ${link.title}
+                    </a>`).join('') : ''}
                 </div>
             </div>
         `;
         
+        // Add click handler to open modal
+        projectCard.addEventListener('click', () => openProjectModal(project));
+        
         projectsGrid.appendChild(projectCard);
         observer.observe(projectCard);
     });
+    
+    // Show/hide view more button
+    const viewMoreBtn = document.getElementById('view-more-btn');
+    if (projects.length > 3) {
+        viewMoreBtn.style.display = 'inline-block';
+        viewMoreBtn.textContent = 'View More Archives';
+        viewMoreBtn.onclick = () => {
+            const hiddenCards = document.querySelectorAll('.project-card.hidden');
+            if (hiddenCards.length > 0) {
+                hiddenCards.forEach(card => card.classList.remove('hidden'));
+                projectsGrid.classList.add('expanded');
+                viewMoreBtn.textContent = 'Show Less';
+                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+            } else {
+                const allCards = document.querySelectorAll('.project-card');
+                allCards.forEach((card, index) => {
+                    if (index >= 3) {
+                        card.classList.add('hidden');
+                    }
+                });
+                projectsGrid.classList.remove('expanded');
+                viewMoreBtn.textContent = 'View More Archives';
+            }
+        };
+    } else {
+        viewMoreBtn.style.display = 'none';
+    }
 }
 
 // Get icon based on title keywords
@@ -402,6 +427,47 @@ contactForm.addEventListener('submit', (e) => {
 });
 
 // ===========================
+// Project Modal
+// ===========================
+function openProjectModal(project) {
+    const modal = document.getElementById('project-modal');
+    const imageContainer = document.getElementById('modal-image-container');
+    
+    document.getElementById('modal-title').textContent = project.title;
+    document.getElementById('modal-year').textContent = project.year;
+    document.getElementById('modal-description').textContent = project.description;
+    
+    // Display image if available
+    if (project.image) {
+        imageContainer.innerHTML = `<img src="${project.image}" alt="${project.title}">`;
+    } else {
+        imageContainer.innerHTML = '';
+    }
+    
+    const linksContainer = document.getElementById('modal-links');
+    linksContainer.innerHTML = '';
+    
+    if (project.links && project.links.length > 0) {
+        project.links.forEach(link => {
+            const anchor = document.createElement('a');
+            anchor.href = link.url;
+            anchor.target = '_blank';
+            anchor.rel = 'noopener';
+            anchor.className = 'modal-link';
+            anchor.innerHTML = `<svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg> ${link.title}`;
+            linksContainer.appendChild(anchor);
+        });
+    }
+    
+    modal.classList.add('active');
+}
+
+function closeProjectModal() {
+    const modal = document.getElementById('project-modal');
+    modal.classList.remove('active');
+}
+
+// ===========================
 // Initialize
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
@@ -467,6 +533,24 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('load', () => {
         if (loadingPage && !loadingPage.classList.contains('hidden')) {
             hideLoadingPage();
+        }
+    });
+    
+    // Modal event listeners
+    const modal = document.getElementById('project-modal');
+    const closeBtn = document.getElementById('modal-close');
+    
+    closeBtn.addEventListener('click', closeProjectModal);
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+            closeProjectModal();
+        }
+    });
+    
+    // Close modal with Escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeProjectModal();
         }
     });
 });

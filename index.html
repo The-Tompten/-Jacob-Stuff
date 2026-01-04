@@ -29,9 +29,9 @@
             <div class="nav-links">
                 <a href="#home" class="nav-link active">Home</a>
                 <a href="about.html" class="nav-link">About</a>
-                <a href="#projects" class="nav-link">Projects</a>
+                <a href="#projects" class="nav-link">The Jacob Archives</a>
                 <a href="#contact" class="nav-link">Contact</a>
-                <a href="#" class="nav-link nav-link-special">Haunted House</a>
+                <a href="https://wyatthaunt.com/final/" class="nav-link nav-link-special">Haunted House</a>
             </div>
             <button class="mobile-menu-toggle" id="mobile-menu-toggle">
                 <span></span>
@@ -62,7 +62,7 @@
                     </div>
                     <p class="hero-subtitle">Robotics • Design • Haunted Houses</p>
                     <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View Projects</a>
+                        <a href="#projects" class="btn btn-primary">View Archives</a>
                         <a href="about.html" class="btn btn-secondary">About Me</a>
                     </div>
                 </div>
@@ -77,12 +77,15 @@
     <!-- Projects Section -->
     <section id="projects" class="projects section">
         <div class="container">
-            <h2 class="section-title" data-aos="fade-up">Projects</h2>
+            <h2 class="section-title" data-aos="fade-up">The Jacob Archives</h2>
             <div class="projects-header" data-aos="fade-up" data-aos-delay="100">
                 <p class="projects-intro">A collection of projects spanning robotics, design, and creative engineering. Each one represents a unique challenge and learning experience.</p>
             </div>
             <div class="projects-grid" id="projects-grid">
                 <!-- Projects will be loaded dynamically from projects.json -->
+            </div>
+            <div class="view-more-container">
+                <button id="view-more-btn" class="btn btn-primary" style="display: none;">View More Archives</button>
             </div>
         </div>
     </section>
@@ -163,6 +166,24 @@
             </div>
         </div>
     </footer>
+
+    <!-- Project Modal -->
+    <div id="project-modal" class="project-modal">
+        <div class="modal-content">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <div id="modal-image-container" class="modal-image-container"></div>
+            <div class="modal-header">
+                <h2 id="modal-title"></h2>
+                <span id="modal-year" class="modal-year"></span>
+            </div>
+            <div class="modal-body">
+                <p id="modal-description"></p>
+            </div>
+            <div class="modal-footer">
+                <div id="modal-links" class="modal-links"></div>
+            </div>
+        </div>
+    </div>
 
     <script src="js/script.js"></script>
 </body>
