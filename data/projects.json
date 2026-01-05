@@ -27,56 +27,87 @@
             }
         ]
     },
-   
     {
         "id": 3,
-        "title": "Custom 3D Printed Mechanisms",
-        "description": "Collection of functional mechanical parts and artistic pieces, ranging from robot components to sculptures, exploring form and function.",
-        "year": "2024",
-        "age": null,
-        "image": null,
-        "links": []
+        "title": "Offseason FRC design Projects",
+        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "year": "2025",
+        "age": 15,
+        "image": "assets/Photos/Shooter.jpg",
+        "links": [
+            {
+                "title": "Site",
+                "url": "https://www.team1729.org/"
+            }
+        ]
     },
     {
         "id": 4,
-        "title": "Music Composition Portfolio",
-        "description": "Original musical compositions blending electronic and organic sounds across different genres and moods.",
-        "year": "2023-2025",
-        "age": null,
-        "image": null,
-        "links": []
+        "title": "Offseason FRC design Projects",
+        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "year": "2025",
+        "age": 15,
+        "image": "assets/Photos/Shooter.jpg",
+        "links": [
+            {
+                "title": "Site",
+                "url": "https://www.team1729.org/"
+            }
+        ]
     },
     {
         "id": 5,
-        "title": "FRC Practice Robot Systems",
-        "description": "Prototyping and testing platform for mechanism validation and driver practice, enabling parallel development with competition robot.",
-        "year": "2024",
-        "age": null,
-        "image": null,
-        "links": []
+        "title": "Offseason FRC design Projects",
+        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "year": "2025",
+        "age": 15,
+        "image": "assets/Photos/Shooter.jpg",
+        "links": [
+            {
+                "title": "Site",
+                "url": "https://www.team1729.org/"
+            }
+        ]
     },
     {
         "id": 6,
-        "title": "Automated Prop Controllers",
-        "description": "Network of Arduino-based controllers orchestrating complex, multi-prop sequences in haunted house with wireless synchronization.",
-        "year": "2024",
-        "age": null,
-        "image": null,
+        "title": "Offseason FRC design Projects",
+        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "year": "2025",
+        "age": 15,
+        "image": "assets/Photos/Shooter.jpg",
         "links": [
             {
-                "title": "GitHub",
-                "url": "#"
+                "title": "Site",
+                "url": "https://www.team1729.org/"
             }
         ]
     },
     {
         "id": 7,
-        "title": "CAD Model Library",
-        "description": "Comprehensive library of parametric CAD models for common FRC mechanisms, enabling rapid design iteration and team knowledge sharing.",
-        "year": "2023-2025",
-        "age": null,
-        "image": null,
-        "links": []
+        "title": "Offseason FRC Design Projects",
+        "description": "All of the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "year": "2025",
+        "age": 15,
+        "image": "assets/Photos/Shooter.jpg",
+        "links": [
+            {
+                "title": "Shooter",
+                "url": "https://cad.onshape.com/documents/2db429272790d35f19b0ea1c/w/06106a94b64dbf590b88db0a/e/30b9accfde53fa1cee907e7b?renderMode=0&uiState=695bf6bd72cc660041d7f973"
+            },
+            {
+                "title": "MasterSketch",
+                "url": "https://cad.onshape.com/documents/e1084f6a1f9055bb96e19059/w/f4773101cce38db7a034b32a/e/6bc0ca523eab242506f3049a?renderMode=0&uiState=695bf718073958e1895ff9b9"
+            },
+            {
+                "title": "Drivetrain + Under-The-Bumper Intake",
+                "url": "https://cad.onshape.com/documents/28f19cc2717a753c61feb94f/w/30b130e2448865a34b9df282/e/a649ddcc6423106e36345a06?renderMode=0&uiState=695bf73cfd5b31c87236664a"
+            },
+            {
+                "title": "Drivetrain + Internally Belted Elevator",
+                "url": "https://cad.onshape.com/documents/07874d09f47458c879c13cda/w/8da3e4dd7d6b9c39d684f013/e/cad90b49ef68eff8dffb6451?renderMode=0&uiState=695bf76bb6ee43efb82554c0"
+            }
+        ]
     },
     {
         "id": 8,
