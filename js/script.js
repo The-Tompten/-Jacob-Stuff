@@ -334,7 +334,10 @@ function displayProjects(projects) {
                 hiddenCards.forEach(card => card.classList.remove('hidden'));
                 projectsGrid.classList.add('expanded');
                 viewMoreBtn.textContent = 'Show Less';
-                document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
+                const firstNewCard = hiddenCards[0] || projectsGrid.querySelector('.project-card:nth-child(4)');
+                if (firstNewCard) {
+                    firstNewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             } else {
                 const allCards = document.querySelectorAll('.project-card');
                 allCards.forEach((card, index) => {
@@ -344,6 +347,10 @@ function displayProjects(projects) {
                 });
                 projectsGrid.classList.remove('expanded');
                 viewMoreBtn.textContent = 'View More Archives';
+                const archivesHeader = document.getElementById('projects');
+                if (archivesHeader) {
+                    archivesHeader.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
             }
         };
     } else {
