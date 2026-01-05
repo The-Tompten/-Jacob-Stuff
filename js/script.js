@@ -14,9 +14,11 @@ class ParticleSystem {
         this.animate();
         
         window.addEventListener('resize', () => this.resize());
-        canvas.addEventListener('mousemove', (e) => {
-            this.mouse.x = e.x;
-            this.mouse.y = e.y;
+        // Track mouse across the whole viewport so particles react even over text/images
+        window.addEventListener('mousemove', (e) => {
+            const rect = this.canvas.getBoundingClientRect();
+            this.mouse.x = e.clientX - rect.left;
+            this.mouse.y = e.clientY - rect.top;
         });
     }
     
