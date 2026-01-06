@@ -28,6 +28,276 @@
         ]
     },
     {
+        "title": "Lilith Studios Halloween Youtube Channel",
+        "description": "I created and managed a youtube channel dedicated to the Haunted houses and Halloween walks, along with animatronic unboxing and short films",
+        "year": "2023",
+        "age": "12",
+        "category": "halloween",
+        "image": "assets/Photos/Lilith.jpg",
+        "links": [
+            {
+                "title": "Channel",
+                "url": "https://www.youtube.com/@lilith.studios.Halloween/featured"
+            }
+        ]
+    },
+    {
+        "title": "Halloween Haunted House 2023",
+        "description": "For the Second year in a row, I designed and built a haunted house for my local community. This year I added animatronics, lighting effects, and sound design to enhance the experience.",
+        "year": "2023",
+        "age": "13",
+        "category": "halloween",
+        "image": "assets/Photos/Halloween2023.jpg",
+        "links": [
+            {
+                "title": "Video",
+                "url": "https://youtu.be/Rwqlz5BVsSQ?si=7KadzBdHpist11Un"
+            }
+        ]
+    },
+    {
+        "title": "Jacob the Drone Guy Youtube Channel",
+        "description": "I created a Youtube channel for displaying Videos I made with my drone and camera.",
+        "year": "2023",
+        "age": "13",
+        "category": "creative",
+        "image": "assets/Photos/JTDG.jpg",
+        "links": [
+            {
+                "title": "Channel",
+                "url": "https://www.youtube.com/@JacobTheDroneGuy"
+            }
+        ]
+    },
+    {
+        "title": "1729 2024 Robot Reveal Video",
+        "description": "I filmed a Robot Reveal video for my FRC team 1729's 2024 competition robot, showcasing the design and features of our robot for the 2024 FRC season.",
+        "year": "2024",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/Rev.jpg",
+        "links": [
+            {
+                "title": "Video",
+                "url": "https://youtu.be/lElB6lav1tc?si=yy_MjX0U2SEEzcKS"
+            }
+        ]
+    },
+    {
+        "title": "1729 3D Printed Pins",
+        "description": "As a CAD Project, I designed and 3D printed custom pins for our FRC team 1729. These pins were given out at events",
+        "year": "2024",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/1729Pins.jpg",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/2c8c68eb9d3c2bcc1c7ff129/w/564bdd3607b4c666f5540b57/e/b6257b024e05be3fcade8abc?renderMode=0&uiState=695d6cb6f958776f94d2e79e"
+            }
+        ]
+    },
+    {
+        "title": "1729 2024 Pit Design",
+        "description": "I designed and built the Pit display for our team out of PVC pipes, lasercut gears, plastic sheets, screens, a projector, and LEDs.",
+        "year": "2024",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/2024Pit.jpg",
+        "links": []
+    },
+    {
+        "title": "FRC New England District Championship 2024",
+        "description": "We won our division at the New England District Championship and qualified for the FRC World Championship in Houston, Texas! Shoutout to our alliance partners 131 and 6329 for being amazing!",
+        "year": "2024",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/Districts2024.jpg",
+        "links": [
+            {
+                "title": "TBA",
+                "url": "https://www.thebluealliance.com/event/2024necmp1"
+            }
+        ]
+    },
+    {
+        "title": "FRC World Championship 2024 - Houston Texas",
+        "description": "We made it to worlds! Our FRC team 1729 Inconceivable qualified for the FRC World Championship in Houston Texas after a successful season and winning our division in the New England district championship. We were an alliance captain and were placed at number one in our division for a while!",
+        "year": "2024",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/Worlds2024.jpg",
+        "links": [
+            {
+                "title": "TBA",
+                "url": "https://www.thebluealliance.com/event/2024arc"
+            }
+        ]
+    },
+    {
+        "title": "FRC 2024 Robot - Rev (The Revenge)",
+        "description": "REV is Team 1729’s high-speed 2024 robot, designed for consistent scoring, dependable intake performance, and smooth autonomous routines that maximized efficiency and reliability in every match.",
+        "year": "2024",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/Revenge.jpg",
+        "links": [
+            {
+                "title": "Competition Results",
+                "url": "https://www.thebluealliance.com/team/1729/2024"
+            },
+            {
+                "title": "Code Archive",
+                "url": "https://code.team1729.org/"
+            },
+            {
+                "title": "Technical Binder",
+                "url": "https://drive.google.com/file/d/1duF5TwboxnAXWSK5h-RWF3c3MRNCKgZR/view?usp=sharing"
+            },
+            {
+                "title": "Build Photos",
+                "url": "https://photos.app.goo.gl/CSCcvvHM6nQgizwQ9"
+            },
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/00bca882ef1bce3c7edc69d3/w/bfde263e66fce8d50f872c89/e/9b31ebe5abff7207ef587831?renderMode=0&uiState=693b3d2f628fbc61b1c21fe2"
+            }
+        ]
+    },
+    {
+        "title": "SJRS Craft Fair 2024",
+        "description": "I sold Honey, 3D Dragons, Lasercut things, and other nicknacks at my school's craft fair.",
+        "year": "2024",
+        "age": "13",
+        "category": "business",
+        "image": "assets/Photos/SJRSFair.jpg",
+        "links": []
+    },
+    {
+        "title": "Chinese Scroll Painting Etsy",
+        "description": "When my parents traveled to China, they brought back traditional Chinese scroll paintings. I sold some of them on Etsy. We still have hundreds so if you want any please reach out!",
+        "year": "2024",
+        "age": "14",
+        "category": "business",
+        "image": "assets/Photos/Scrolls.jpg",
+        "links": []
+    },
+    {
+        "title": "3D Printed Multicolor Dragon Business",
+        "description": "I started a small business selling 3d printed multicolor dragons on Etsy, I printed, packaged, and shipped them from home.",
+        "year": "2024",
+        "age": "14",
+        "category": "business",
+        "image": "assets/Photos/Dragons.jpg",
+        "links": []
+    },
+    {
+        "title": "Power Saw Stand for the NMH Makerspace",
+        "description": "I designed a power saw stand for my school's makerspace made out of 2*4s and plywood with two expanable sides for cutting longer pieces of wood.",
+        "year": "2024",
+        "age": "14",
+        "category": "invention",
+        "image": "assets/Photos/SawStand.jpg",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/28cc73239b4698d197a37d5f/w/929011dc203b14594f8ac0db/e/6d5a1ea5accfe8bd1a065a1a?renderMode=0&uiState=695d6e73f168bd674a99365f"
+            }
+        ]
+    },
+    {
+        "title": "Halloween Haunted House 2024",
+        "description": "For the Third year in a row, I designed and built a haunted house for my local community. This year I added animatronics, lighting effects, and sound design to enhance the experience.",
+        "year": "2024",
+        "age": "14",
+        "category": "halloween",
+        "image": "assets/Photos/Halloween2024.jpg",
+        "links": [
+            {
+                "title": "Video",
+                "url": "https://youtu.be/kAodLdaMbvE?si=yxiaXe3tUMod_iG5"
+            }
+        ]
+    },
+    {
+        "title": "NMH 2024 Fall Play - Tech Crew",
+        "description": "I was on the Tech Crew for my school's fall play, '12th Night'. I helped with light fictures and set construction",
+        "year": "2024",
+        "age": "14",
+        "category": "creative",
+        "image": "assets/Photos/FallPlay2024.jpg",
+        "links": [
+            {
+                "title": "Flickr",
+                "url": "https://www.flickr.com/photos/nmhphotos/albums/72177720321791806"
+            }
+        ]
+    },
+    {
+        "title": "NMH 2024 Fall Dance Show Lighting Design",
+        "description": "I designed the lights for two of the dances in my schools fall dance show. Shoutout to Bonnie and Niayla for being amazing choreographers!",
+        "year": "2024",
+        "age": "14",
+        "category": "creative",
+        "image": "assets/Photos/FallDance2024.jpg",
+        "links": [
+            {
+                "title": "Bonnie",
+                "url": "https://photos.app.goo.gl/eSP6CrCZAt53MAdN8"
+            },
+            {
+                "title": "Niayla",
+                "url": "https://photos.app.goo.gl/5p5VieJ1BWrzrFx3A"
+            },
+            {
+                "title": "Flickr",
+                "url": "https://www.flickr.com/photos/nmhphotos/albums/72177720322009131"
+            }
+        ]
+    },
+    {
+        "title": "Honey + Dragons at the Chesterfield Farmers Market",
+        "description": "I sold my 3d printed dragons and homemade honey at my local farmers market",
+        "year": "2024",
+        "age": "14",
+        "category": "business",
+        "image": "assets/Photos/FarmersMarket.jpg",
+        "links": [
+            {
+                "title": "Film",
+                "url": "https://drive.google.com/file/d/1JE4UaOvfNOj_NkHkks7C1FvOtKCqltDN/view?usp=sharing"
+            }
+        ]
+    },
+    {
+        "title": "HUM 1 English Final Movie",
+        "description": "As my final for my Hum 1 English class, me and a friend created a short film based off of the book 'Speak' by Laurie Halse Anderson.",
+        "year": "2024",
+        "age": "14",
+        "category": "creative",
+        "image": "assets/Photos/inanimate.jpg",
+        "links": [
+            {
+                "title": "Film",
+                "url": "https://drive.google.com/file/d/1JE4UaOvfNOj_NkHkks7C1FvOtKCqltDN/view?usp=sharing"
+            }
+        ]
+    },
+    {
+        "title": "2025 Driverstation Design",
+        "description": "I designed a custom driverstation for my FRC team to use during competitiions built out of Polycarb, 80/20 extrusions, and 3D prints.",
+        "year": "2025",
+        "age": 14,
+        "category": "robotics",
+        "image": "assets/Photos/2025Driverstation.jpg",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/3948c92a8d97e0b4b5a216f9/w/861f4ad55084b8563cbc119c/e/3d7148c60983e85993cb4f89?renderMode=0&uiState=695d6b25b6eaad89863e5f8e"
+            }
+        ]
+    },
+    {
         "title": "FRC 1729 2025 Competition Robot - Ellie",
         "description": "I helped design and build my local FRC team's 2025 competition robot, Ellie. I was also operating the robot on driveteam throughout the season. Ellie made it to the 2025 district championship!",
         "year": "2025",
@@ -74,19 +344,24 @@
         "age": 15,
         "category": "robotics",
         "image": "assets/Photos/FPVDrone.jpg",
+        "links": []
+    },
+    {
+        "title": "Wyatt Haunt Website",
+        "description": "I designed and developed the website for my haunted house, Wyatt Haunt. This year was themed as 'Forest of Fears.'",
+        "year": "2025",
+        "age": 15,        
+        "category": "halloween",        
+        "image": "assets/Photos/HalloweenWeb.jpg",
         "links": [
             {
-                "title": "Website",
-                "url": "https://wyatthaunt.com/"
-            },
-            {
-                "title": "Youtube Video",
-                "url": "https://youtu.be/EuYma_cU_fc"
+                "title": "Site",
+                "url": "https://wyatthaunt.com"
             }
         ]
     },
     {
-        "title": "Halloween Haunted House 2025",
+        "title": "Halloween Haunted House 2025 - Forest of Fears",
         "description": "For the third year in a row, I designed and built a haunted house for my neighborhood. This year it expanded to include new animatronics and a full storyline.",
         "year": "2025",
         "age": 15,
@@ -184,7 +459,7 @@
         "description": "I designed and developed the website for FRC Team 1729 Inconceivable, showcasing our team’s achievements, projects, and values.",
         "year": "2025",
         "age": 15,        
-        "category": "web-development",        
+        "category": "robotics",        
         "image": "assets/Photos/Website.jpg",
         "links": [
             {
