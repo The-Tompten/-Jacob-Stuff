@@ -1,10 +1,10 @@
 [
-     {
-        "id": 1,
+    {
         "title": "Lego (+ Rokenbok) Design Competition",
         "description": "Me and a close friend entered a lego design contest where we built a city scape out of lego and rokenbok pieces. It had a Rockenblock monorail!",
         "year": "2024",
         "age": 9,
+        "category": "creative",
         "image": "assets/Photos/Legos.jpg",
         "links": [
             {
@@ -14,11 +14,11 @@
         ]
     },
     {
-        "id": 2,
         "title": "My First Invention: The Butter-Sauna",
         "description": "During covid I enrolled in Mark Rober's invention curriculum where I created a machine that softens butter to room temperature in 4% of the time it normally takes for making cookies.",
         "year": "2020-21",
         "age": "10",
+        "category": "invention",
         "image": "assets/Photos/ButterSauna.jpg",
         "links": [
             {
@@ -28,67 +28,101 @@
         ]
     },
     {
-        "id": 3,
-        "title": "Offseason FRC design Projects",
-        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "title": "FRC 1729 2025 Competition Robot - Ellie",
+        "description": "I helped design and build my local FRC team's 2025 competition robot, Ellie. I was also operating the robot on driveteam throughout the season. Ellie made it to the 2025 district championship!",
         "year": "2025",
-        "age": 15,
-        "image": "assets/Photos/Shooter.jpg",
+        "age": 14,
+        "category": "robotics",
+        "image": "assets/Photos/2025.jpg",
         "links": [
             {
-                "title": "Site",
-                "url": "https://www.team1729.org/"
+                "title": "Competition Results",
+                "url": "https://www.thebluealliance.com/team/1729/2025"
+            },
+            {
+                "title": "Code Archive",
+                "url": "https://code.team1729.org/"
+            },
+            {
+                "title": "Build Photos",
+                "url": "https://photos.app.goo.gl/KJTLqmUSTrZtDSuB9"
+            },
+            {
+                "title": "Competition CAD",
+                "url": "https://cad.onshape.com/documents/edf69c3999c72935c7b235d0/w/c7f27708ed3d93e6c91eb566/e/28c7c2bde0fff459e447b4b9?renderMode=0&uiState=6939e5de8d10ce3ec5c13d5d"
             }
         ]
     },
     {
-        "id": 4,
-        "title": "Offseason FRC design Projects",
-        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "title": "NMH One-Act Festival",
+        "description": "I designed the set and lights for a One-Act play at my school. Shoutout to Henry for being an amazing director!",
         "year": "2025",
-        "age": 15,
-        "image": "assets/Photos/Shooter.jpg",
+        "age": 14,
+        "category": "creative",
+        "image": "assets/Photos/One-Acts2025.jpg",
         "links": [
             {
-                "title": "Site",
-                "url": "https://www.team1729.org/"
+                "title": "Flickr",
+                "url": "https://www.flickr.com/photos/nmhphotos/albums/72177720325965336/"
             }
         ]
     },
     {
-        "id": 5,
-        "title": "Offseason FRC design Projects",
-        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "title": "FPV Drone Build",
+        "description": "I built my first FPV racing drone from scratch, learning about electronics, soldering, and control systems along the way.",
         "year": "2025",
         "age": 15,
-        "image": "assets/Photos/Shooter.jpg",
+        "category": "robotics",
+        "image": "assets/Photos/FPVDrone.jpg",
         "links": [
             {
-                "title": "Site",
-                "url": "https://www.team1729.org/"
+                "title": "Website",
+                "url": "https://wyatthaunt.com/"
+            },
+            {
+                "title": "Youtube Video",
+                "url": "https://youtu.be/EuYma_cU_fc"
             }
         ]
     },
     {
-        "id": 6,
-        "title": "Offseason FRC design Projects",
-        "description": "All opf the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
+        "title": "Halloween Haunted House 2025",
+        "description": "For the third year in a row, I designed and built a haunted house for my neighborhood. This year it expanded to include new animatronics and a full storyline.",
         "year": "2025",
         "age": 15,
-        "image": "assets/Photos/Shooter.jpg",
+        "category": "halloween",
+        "image": "assets/Photos/Halloween2025.jpg",
         "links": [
             {
-                "title": "Site",
-                "url": "https://www.team1729.org/"
+                "title": "Website",
+                "url": "https://wyatthaunt.com/"
+            },
+            {
+                "title": "Youtube Video",
+                "url": "https://youtu.be/EuYma_cU_fc"
             }
         ]
     },
     {
-        "id": 7,
+        "title": "FTC Design Project",
+        "description": "This year I decided to take a stab at designing an FTC robot. This is my first attempt at designing an FTC robot from scratch and I never completed the project",
+        "year": "2025",
+        "age": 15,
+        "category": "robotics",
+        "image": "assets/Photos/FTC.jpg",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/0a5bd9126a66dadcc7df10d8/w/3e8982a1b0aa11f4bd85a13e/e/0be9aaaa5c1b462f2ad81fb8?renderMode=0&uiState=695c77820358e86c111e9abf"
+            }
+        ]
+    },
+    {
         "title": "Offseason FRC Design Projects",
         "description": "All of the cad design work I did during the offseason including drivetrains, mastersketches, intakes, and shooters.",
         "year": "2025",
         "age": 15,
+        "category": "robotics",
         "image": "assets/Photos/Shooter.jpg",
         "links": [
             {
@@ -110,11 +144,47 @@
         ]
     },
     {
-        "id": 8,
+        "title": "Fall Dance Show Lighting Design",
+        "description": "I designed the lights for one of the dances in my schools fall dance show. Shoutout to Bonnie for being an amazing choreographer!",
+        "year": "2025",
+        "age": 15,
+        "category": "creative",
+        "image": "assets/Photos/Dance2025.jpg",
+        "links": [
+            {
+                "title": "Video",
+                "url": "https://photos.app.goo.gl/yGXTdqfPTuFKJb6Z9"
+            },
+            {
+                "title": "Flickr",
+                "url": "https://www.flickr.com/photos/nmhphotos/albums/72177720330102651/with/54901425802"
+            }
+        ]
+    },
+    {
+        "title": "Urinetown | Set Design + Audio Engineering",
+        "description": "I helped design and build the set for my school's production of Urinetown, as well as managing the audio engineering during performances.",
+        "year": "2025",
+        "age": 15,
+        "category": "creative",
+        "image": "assets/Photos/Urinetown.jpg",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/4b7d5cfab3a78a7bc59af882/w/0a5a5c61c647370841b0fa90/e/cdc8b9b95d5fe9f126874789?renderMode=0&uiState=695c800fc2b255fcf99bbc05"
+            },
+            {
+                "title": "Flickr",
+                "url": "https://www.flickr.com/photos/nmhphotos/albums/72177720330310596/"
+            }
+        ]
+    },
+    {
         "title": "1729 Team Inconcievable Website",
         "description": "I designed and developed the website for FRC Team 1729 Inconceivable, showcasing our team’s achievements, projects, and values.",
         "year": "2025",
-        "age": 15,
+        "age": 15,        
+        "category": "web-development",        
         "image": "assets/Photos/Website.jpg",
         "links": [
             {

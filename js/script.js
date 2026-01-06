@@ -259,25 +259,98 @@ document.querySelectorAll('.skill-category').forEach(element => {
 // Projects Loading & Filtering
 // ===========================
 let allProjects = [];
+let currentFilter = 'all';
 
 // Load projects from JSON
 async function loadProjects() {
     try {
         const response = await fetch('data/projects.json');
         allProjects = await response.json();
-        displayProjects(allProjects);
+        createCategoryFilters();
+        displayProjects(allProjects, false);
     } catch (error) {
         console.error('Error loading projects:', error);
         displayProjectsPlaceholder();
     }
 }
 
+// Automatically create category filters from project data
+function createCategoryFilters() {
+    // Count projects in each category
+    const categoryCounts = {};
+    allProjects.forEach(project => {
+        if (project.category) {
+            categoryCounts[project.category] = (categoryCounts[project.category] || 0) + 1;
+        }
+    });
+    
+    const filtersContainer = document.getElementById('category-filters');
+    if (!filtersContainer) return;
+    
+    filtersContainer.innerHTML = '';
+    
+    // Add "All" filter first
+    const allButton = document.createElement('button');
+    allButton.className = 'category-filter active';
+    allButton.setAttribute('data-category', 'all');
+    allButton.textContent = 'All';
+    allButton.addEventListener('click', () => filterProjects('all'));
+    filtersContainer.appendChild(allButton);
+    
+    // Sort categories by project count (most to least)
+    const sortedCategories = Object.keys(categoryCounts).sort((a, b) => {
+        return categoryCounts[b] - categoryCounts[a];
+    });
+    
+    sortedCategories.forEach(category => {
+        const button = document.createElement('button');
+        button.className = 'category-filter';
+        button.setAttribute('data-category', category);
+        // Format category name for display (replace hyphens with spaces, capitalize)
+        const displayName = category.split('-').map(word => 
+            word.charAt(0).toUpperCase() + word.slice(1)
+        ).join(' ');
+        button.textContent = displayName;
+        button.addEventListener('click', () => filterProjects(category));
+        filtersContainer.appendChild(button);
+    });
+}
+
+// Filter projects by category
+function filterProjects(category) {
+    currentFilter = category;
+    
+    // Update active button
+    document.querySelectorAll('.category-filter').forEach(btn => {
+        btn.classList.remove('active');
+        if (btn.getAttribute('data-category') === category) {
+            btn.classList.add('active');
+        }
+    });
+    
+    // Filter and display projects
+    const filteredProjects = category === 'all' 
+        ? allProjects 
+        : allProjects.filter(project => project.category === category);
+    
+    // Expand by default for specific categories, collapse for 'all'
+    const startExpanded = category !== 'all';
+    displayProjects(filteredProjects, startExpanded);
+}
+
 // Display projects
-function displayProjects(projects) {
+function displayProjects(projects, startExpanded = false) {
     const projectsGrid = document.getElementById('projects-grid');
     projectsGrid.innerHTML = '';
     
-    // Reverse projects so newer ones (higher ID) show up first
+    // Set expanded state based on parameter
+    if (startExpanded) {
+        projectsGrid.classList.add('expanded');
+    } else {
+        projectsGrid.classList.remove('expanded');
+    }
+    
+    // Invert file order so entries you list first appear at the bottom of the grid
     const reversedProjects = [...projects].reverse();
     
     reversedProjects.forEach((project, index) => {
@@ -286,8 +359,8 @@ function displayProjects(projects) {
         projectCard.setAttribute('data-aos', 'fade-up');
         projectCard.style.cursor = 'pointer';
         
-        // Hide projects after the first 3
-        if (index >= 3) {
+        // Hide projects after the first 3 only if not starting expanded
+        if (index >= 3 && !startExpanded) {
             projectCard.classList.add('hidden');
         }
         
@@ -296,6 +369,7 @@ function displayProjects(projects) {
                 ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image-img">` : `<div class="project-image-placeholder">
                     ${getProjectIcon(project.title)}
                 </div>`}
+                ${project.category ? `<span class="project-category-tag">${project.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>` : ''}
             </div>
             <div class="project-content">
                 <div class="project-meta">
@@ -411,29 +485,8 @@ function displayProjectsPlaceholder() {
             technologies: ["Fusion 360", "PrusaSlicer", "FDM Printing"]
         }
     ];
-    displayProjects(allProjects);
+    displayProjects(allProjects, false);
 }
-
-// ===========================
-// Contact Form
-// ===========================
-const contactForm = document.getElementById('contact-form');
-contactForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    
-    // Get form data
-    const formData = new FormData(contactForm);
-    const data = Object.fromEntries(formData);
-    
-    // Here you would typically send the data to a server
-    console.log('Form submitted:', data);
-    
-    // Show success message (you can customize this)
-    alert('Thank you for your message! I will get back to you soon.');
-    
-    // Reset form
-    contactForm.reset();
-});
 
 // ===========================
 // Project Modal
@@ -480,7 +533,18 @@ function closeProjectModal() {
 // Initialize
 // ===========================
 document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded');
     const loadingPage = document.getElementById('loading-page');
+    console.log('Loading page element:', loadingPage);
+    
+    // Hide loading page after all resources load
+    function hideLoadingPage() {
+        console.log('hideLoadingPage called');
+        if (loadingPage) {
+            loadingPage.classList.add('hidden');
+            console.log('Hidden class added to loading page');
+        }
+    }
     
     // Initialize particle system
     const particlesCanvas = document.getElementById('particles-canvas');
@@ -488,55 +552,38 @@ document.addEventListener('DOMContentLoaded', () => {
         new ParticleSystem(particlesCanvas);
     }
 
-    // Hero video → photo transition
+    // Hero video setup
     const heroVideo = document.getElementById('hero-video');
-    const heroPhoto = document.getElementById('hero-photo');
-    let videoLoaded = false;
     
-    if (heroVideo && heroPhoto) {
-        const revealPhoto = () => {
-            heroVideo.classList.add('is-hidden');
-            heroPhoto.classList.add('is-visible');
-            videoLoaded = true;
+    if (heroVideo) {
+        // Mark video as loaded when it can play
+        heroVideo.addEventListener('canplay', () => {
+            console.log('Video can play');
             hideLoadingPage();
-        };
+        }, { once: true });
 
-        // If no video source is configured, show the photo immediately
-        if (!heroVideo.getAttribute('src')) {
-            revealPhoto();
-        } else {
-            // Mark video as loaded when it can play
-            heroVideo.addEventListener('canplay', () => {
-                videoLoaded = true;
-                hideLoadingPage();
-            });
-        }
-
-        heroVideo.addEventListener('ended', revealPhoto);
-        heroVideo.addEventListener('error', revealPhoto);
+        heroVideo.addEventListener('error', () => {
+            console.log('Video error');
+            hideLoadingPage();
+        }, { once: true });
 
         const playAttempt = heroVideo.play();
         if (playAttempt && typeof playAttempt.catch === 'function') {
-            playAttempt.catch(revealPhoto);
+            playAttempt.catch(() => {
+                console.log('Video play failed');
+                hideLoadingPage();
+            });
         }
     }
     
     // Load projects
     loadProjects();
     
-    // Hide loading page after all resources load
-    function hideLoadingPage() {
-        if (loadingPage) {
-            loadingPage.classList.add('hidden');
-        }
-    }
-    
-    // Fallback: hide loading after 5 seconds
+    // Fallback: hide loading after 2 seconds minimum
     setTimeout(() => {
-        if (loadingPage && !loadingPage.classList.contains('hidden')) {
-            hideLoadingPage();
-        }
-    }, 5000);
+        console.log('Timeout reached - forcing hide');
+        hideLoadingPage();
+    }, 2000);
     
     // Hide loading when window fully loads
     window.addEventListener('load', () => {
@@ -562,6 +609,27 @@ document.addEventListener('DOMContentLoaded', () => {
             closeProjectModal();
         }
     });
+    
+    // Contact Form
+    const contactForm = document.getElementById('contact-form');
+    if (contactForm) {
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(contactForm);
+            const data = Object.fromEntries(formData);
+            
+            // Here you would typically send the data to a server
+            console.log('Form submitted:', data);
+            
+            // Show success message (you can customize this)
+            alert('Thank you for your message! I will get back to you soon.');
+            
+            // Reset form
+            contactForm.reset();
+        });
+    }
 });
 
 // ===========================
