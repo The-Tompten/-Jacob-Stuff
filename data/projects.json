@@ -28,6 +28,28 @@
         ]
     },
     {
+        "title": "FRC 2022 Robot - Miracle Max",
+        "description": "Miracle Max marked Team 1729's recovery year, bringing valuable lessons and challenges that we overcame together. Through persistence and determination, we achieved our first-ever qualifying competition win—a milestone that demonstrated our team's resilience and growth.",
+        "year": "2022",
+        "age": "11",
+        "category": "robotics",
+        "image": "assets/Photos/2022.jpg",
+        "links": [
+            {
+                "title": "Competition Results",
+                "url": "https://www.thebluealliance.com/team/1729/2022"
+            },
+            {
+                "title": "Code Archive",
+                "url": "https://code.team1729.org/"
+            },
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/0cdb58bb9b6cae3c26c48d0a/w/72efa282f8aa5666893ffd74/e/8ecc24471a6916ed3e4c8299?renderMode=0&uiState=693cc4ee4750fcd2772b9d15"
+            }
+        ]
+    },
+    {
         "title": "Halloween Haunted Walk 2022",
         "description": "I designed and built a haunted walk in my backyard for the first year. It was fairly bare-bones so I only have this video compilation of the event. Also pay no attention to the script, it was written by ai and my 12 year old self thought it was amazing.",
         "year": "2022",
@@ -52,6 +74,36 @@
             {
                 "title": "Channel",
                 "url": "https://www.youtube.com/@lilith.studios.Halloween/featured"
+            }
+        ]
+    },
+    {
+        "title": "FRC 2023 Robot - Sylvester",
+        "description": "Sylvester is Team 1729’s versatile 2023 robot, built for precise cone and cube handling, stable scoring at multiple levels, and dependable autonomous paths that strengthened overall match consistency.",
+        "year": "2023",
+        "age": "12",
+        "category": "robotics",
+        "image": "assets/Photos/2023.jpg",
+        "links": [
+            {
+                "title": "Competition Results",
+                "url": "https://www.thebluealliance.com/team/1729/2023"
+            },
+            {
+                "title": "Code Archive",
+                "url": "https://code.team1729.org/"
+            },
+            {
+                "title": "Technical Binder",
+                "url": "https://drive.google.com/file/d/1SODnqF6ES89NoESUMBdG1XHSE3iPcvB0/view?usp=sharing"
+            },
+            {
+                "title": "Build Photos",
+                "url": "https://photos.app.goo.gl/a4eTGxHgJxMYhS29A"
+            },
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/1657744bbc8d0f73e0d82299/w/f4112226efbbcf548c02e595/e/d6630c4b13f620de709e7f0f?renderMode=0&uiState=693c20647071cf71ec195f05"
             }
         ]
     },
