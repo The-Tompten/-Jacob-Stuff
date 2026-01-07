@@ -27,6 +27,20 @@
             }
         ]
     },
+        {
+        "title": "FTC 20099 2021 Robot - Robot Of Unusual Size (R.O.U.S.)",
+        "description": "ROUS represented Team Inconcievable's FTC team's Rookie year. It ended up placing second in the state championship and being alliance captain #2.",
+        "year": "2021",
+        "age": "11",
+        "category": "robotics",
+        "image": "assets/Photos/FTC2021.jpg",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/98bea9efcc96dc2c4eed5307/w/f5ad017ec233c834776c744f/e/f1b86b746ac34c820d299a92?renderMode=0&uiState=695e7d283f87dee84654fe43"
+            }
+        ]
+    },
     {
         "title": "FRC 2022 Robot - Miracle Max",
         "description": "Miracle Max marked Team 1729's recovery year, bringing valuable lessons and challenges that we overcame together. Through persistence and determination, we achieved our first-ever qualifying competition win—a milestone that demonstrated our team's resilience and growth.",
