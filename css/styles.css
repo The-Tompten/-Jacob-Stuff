@@ -949,6 +949,23 @@ p {
     opacity: 0.3;
 }
 
+.profile-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 12px;
+    position: relative;
+    z-index: 1;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+
+.image-caption {
+    margin-top: 0.85rem;
+    font-size: 0.95rem;
+    color: var(--text-gray);
+    line-height: 1.5;
+}
+
 /* ===========================
    Projects Section
    =========================== */
