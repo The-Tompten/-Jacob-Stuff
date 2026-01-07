@@ -261,6 +261,35 @@ document.querySelectorAll('.skill-category').forEach(element => {
 let allProjects = [];
 let currentFilter = 'all';
 
+// Preload all project images
+function preloadImages(projects) {
+    return new Promise((resolve) => {
+        const imageUrls = projects
+            .filter(project => project.image)
+            .map(project => project.image);
+        
+        if (imageUrls.length === 0) {
+            resolve();
+            return;
+        }
+        
+        let loadedCount = 0;
+        const totalImages = imageUrls.length;
+        
+        imageUrls.forEach(url => {
+            const img = new Image();
+            img.onload = img.onerror = () => {
+                loadedCount++;
+                console.log(`Loaded ${loadedCount}/${totalImages} images`);
+                if (loadedCount === totalImages) {
+                    resolve();
+                }
+            };
+            img.src = url;
+        });
+    });
+}
+
 // Load projects from JSON
 async function loadProjects() {
     try {
@@ -268,9 +297,15 @@ async function loadProjects() {
         allProjects = await response.json();
         createCategoryFilters();
         displayProjects(allProjects, false);
+        
+        // Preload all images
+        await preloadImages(allProjects);
+        console.log('All images preloaded');
+        return true;
     } catch (error) {
         console.error('Error loading projects:', error);
         displayProjectsPlaceholder();
+        return false;
     }
 }
 
@@ -532,17 +567,22 @@ function closeProjectModal() {
 // ===========================
 // Initialize
 // ===========================
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     console.log('DOM Content Loaded');
     const loadingPage = document.getElementById('loading-page');
     console.log('Loading page element:', loadingPage);
     
+    let videoReady = false;
+    let imagesReady = false;
+    
     // Hide loading page after all resources load
     function hideLoadingPage() {
-        console.log('hideLoadingPage called');
-        if (loadingPage) {
-            loadingPage.classList.add('hidden');
-            console.log('Hidden class added to loading page');
+        console.log('hideLoadingPage called', { videoReady, imagesReady });
+        if (videoReady && imagesReady) {
+            console.log('All resources loaded - hiding loading page');
+            if (loadingPage) {
+                loadingPage.classList.add('hidden');
+            }
         }
     }
     
@@ -559,11 +599,13 @@ document.addEventListener('DOMContentLoaded', () => {
         // Mark video as loaded when it can play
         heroVideo.addEventListener('canplay', () => {
             console.log('Video can play');
+            videoReady = true;
             hideLoadingPage();
         }, { once: true });
 
         heroVideo.addEventListener('error', () => {
             console.log('Video error');
+            videoReady = true;
             hideLoadingPage();
         }, { once: true });
 
@@ -571,26 +613,29 @@ document.addEventListener('DOMContentLoaded', () => {
         if (playAttempt && typeof playAttempt.catch === 'function') {
             playAttempt.catch(() => {
                 console.log('Video play failed');
+                videoReady = true;
                 hideLoadingPage();
             });
         }
+    } else {
+        videoReady = true;
     }
     
-    // Load projects
-    loadProjects();
+    // Load projects and preload all images
+    const projectsLoaded = await loadProjects();
+    if (projectsLoaded) {
+        console.log('Projects and images loaded');
+        imagesReady = true;
+        hideLoadingPage();
+    }
     
-    // Fallback: hide loading after 2 seconds minimum
+    // Fallback: hide loading after 10 seconds maximum
     setTimeout(() => {
         console.log('Timeout reached - forcing hide');
+        videoReady = true;
+        imagesReady = true;
         hideLoadingPage();
-    }, 2000);
-    
-    // Hide loading when window fully loads
-    window.addEventListener('load', () => {
-        if (loadingPage && !loadingPage.classList.contains('hidden')) {
-            hideLoadingPage();
-        }
-    });
+    }, 10000);
     
     // Modal event listeners
     const modal = document.getElementById('project-modal');
