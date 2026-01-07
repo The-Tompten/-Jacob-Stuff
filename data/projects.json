@@ -28,6 +28,20 @@
         ]
     },
     {
+        "title": "Halloween Haunted Walk 2022",
+        "description": "I designed and built a haunted walk in my backyard for the first year. It was fairly bare-bones so I only have this video compilation of the event. Also pay no attention to the script, it was written by ai and my 12 year old self thought it was amazing.",
+        "year": "2022",
+        "age": "12",
+        "category": "halloween",
+        "image": "assets/Photos/Halloween2022.jpg",
+        "links": [
+            {
+                "title": "Video",
+                "url": "https://youtu.be/4xt-9_NTalE?si=M6wRneI3brNrmsyE"
+            }
+        ]
+    },
+    {
         "title": "Lilith Studios Halloween Youtube Channel",
         "description": "I created and managed a youtube channel dedicated to the Haunted houses and Halloween walks, along with animatronic unboxing and short films",
         "year": "2023",
@@ -38,6 +52,38 @@
             {
                 "title": "Channel",
                 "url": "https://www.youtube.com/@lilith.studios.Halloween/featured"
+            }
+        ]
+    },
+    {
+        "title": "Alien Sci-Fi Horror Trailer",
+        "description": "During a video production camp at ID tech, I filmed and edited a sci-fi horror moovie trailer over the course of a week. Disclaimer: I could not find the film on any of my hardrives or backups.",
+        "year": "2023",
+        "age": "13",
+        "category": "creative",
+        "image": "assets/Photos/Alien.jpg",
+        "links": []
+    },
+    {
+        "title": "Vex Battlebot at ID tech Camp",
+        "description": "I designed the champion battle bot for a Vex Battlebot competition at ID tech camp.",
+        "year": "2023",
+        "age": "13",
+        "category": "robotics",
+        "image": "assets/Photos/Vex.jpg",
+        "links": []
+    },
+    {
+        "title": "Pretty Ugly Sound Designs Music Youtube Channel",
+        "description": "I made music during covid and created a youtube channel to post them on.",
+        "year": "2023",
+        "age": "13",
+        "category": "creative",
+        "image": "assets/Photos/Music.jpg",
+        "links": [
+            {
+                "title": "Channel",
+                "url": "https://www.youtube.com/@PrettyUglySoundDesigns"
             }
         ]
     },
@@ -99,7 +145,7 @@
     },
     {
         "title": "1729 2024 Pit Design",
-        "description": "I designed and built the Pit display for our team out of PVC pipes, lasercut gears, plastic sheets, screens, a projector, and LEDs.",
+        "description": "I designed and built my frc team's award wining pit display out of PVC pipes, lasercut gears, plastic sheets, screens, a projector, and LEDs.",
         "year": "2024",
         "age": "13",
         "category": "robotics",
