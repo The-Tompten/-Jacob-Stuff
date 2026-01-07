@@ -438,6 +438,13 @@ function displayProjects(projects, startExpanded = false) {
         viewMoreBtn.style.display = 'inline-block';
         viewMoreBtn.textContent = 'View More Archives';
         viewMoreBtn.onclick = () => {
+            // If viewing a specific category, switch to 'all' instead
+            if (currentFilter !== 'all') {
+                filterProjects('all');
+                return;
+            }
+            
+            // Otherwise toggle expand/collapse for 'all' category
             const hiddenCards = document.querySelectorAll('.project-card.hidden');
             if (hiddenCards.length > 0) {
                 hiddenCards.forEach(card => card.classList.remove('hidden'));
