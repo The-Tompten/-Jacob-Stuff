@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Jacob Challenge — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --font-display: 'IBM Plex Mono', 'Courier New', monospace;
+  --font-body:    'IBM Plex Sans', 'Helvetica Neue', sans-serif;
+
+  --text-xs:   clamp(0.75rem,  0.7rem  + 0.25vw, 0.875rem);
+  --text-sm:   clamp(0.875rem, 0.8rem  + 0.35vw, 1rem);
+  --text-base: clamp(1rem,     0.95rem + 0.25vw, 1.125rem);
+  --text-lg:   clamp(1.125rem, 1rem    + 0.75vw, 1.5rem);
+  --text-xl:   clamp(1.5rem,   1.2rem  + 1.25vw, 2.25rem);
+
+  --space-1: 0.25rem; --space-2: 0.5rem;  --space-3: 0.75rem;
+  --space-4: 1rem;    --space-5: 1.25rem; --space-6: 1.5rem;
+  --space-8: 2rem;    --space-10: 2.5rem; --space-12: 3rem;
+  --space-16: 4rem;
+
+  --radius-sm: 0.25rem; --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;  --radius-full: 9999px;
+  --transition: 160ms cubic-bezier(0.16, 1, 0.3, 1);
+  --content-wide: 1100px;
+  --content-default: 880px;
+}
+
+:root, [data-theme="dark"] {
+  --color-bg:              #0e0f11;
+  --color-surface:         #141518;
+  --color-surface-2:       #1a1c20;
+  --color-surface-offset:  #1f2126;
+  --color-surface-dynamic: #272b32;
+  --color-divider:         #2a2d34;
+  --color-border:          #33373f;
+  --color-text:            #e8eaed;
+  --color-text-muted:      #8b919e;
+  --color-text-faint:      #4e5561;
+  --color-text-inverse:    #0e0f11;
+  --color-primary:         #e8a020;
+  --color-primary-hover:   #f0b040;
+  --color-primary-active:  #c88010;
+  --color-primary-bg:      rgba(232,160,32,0.08);
+  --color-primary-border:  rgba(232,160,32,0.22);
+  --color-success:         #4caf72;
+  --color-success-bg:      rgba(76,175,114,0.1);
+  --color-error:           #e05c5c;
+  --color-error-bg:        rgba(224,92,92,0.1);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.4);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.5);
+}
+
+[data-theme="light"] {
+  --color-bg:              #f4f5f7;
+  --color-surface:         #ffffff;
+  --color-surface-2:       #f8f9fa;
+  --color-surface-offset:  #eef0f3;
+  --color-surface-dynamic: #e4e7ec;
+  --color-divider:         #d8dce4;
+  --color-border:          #cbd0da;
+  --color-text:            #1a1d24;
+  --color-text-muted:      #5a6070;
+  --color-text-faint:      #9aa0ad;
+  --color-text-inverse:    #f4f5f7;
+  --color-primary:         #c07010;
+  --color-primary-hover:   #a05a00;
+  --color-primary-active:  #804800;
+  --color-primary-bg:      rgba(192,112,16,0.07);
+  --color-primary-border:  rgba(192,112,16,0.2);
+  --color-success:         #2d8a52;
+  --color-success-bg:      rgba(45,138,82,0.09);
+  --color-error:           #c43a3a;
+  --color-error-bg:        rgba(196,58,58,0.09);
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 16px rgba(0,0,0,0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+body { min-height: 100dvh; font-family: var(--font-body); font-size: var(--text-base); color: var(--color-text); background: var(--color-bg); line-height: 1.55; }
+img, svg { display: block; max-width: 100%; }
+button { cursor: pointer; font: inherit; color: inherit; background: none; border: none; }
+input, select, textarea { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--color-primary); outline-offset: 2px; border-radius: var(--radius-sm); }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; } }
+
+/* LAYOUT */
+.container { max-width: var(--content-wide); margin-inline: auto; padding-inline: var(--space-4); }
+
+/* HEADER */
+.site-header { position: sticky; top: 0; z-index: 100; background: var(--color-surface); border-bottom: 1px solid var(--color-divider); padding: var(--space-3) var(--space-4); }
+.site-header__inner { max-width: var(--content-wide); margin-inline: auto; display: flex; align-items: center; justify-content: space-between; gap: var(--space-4); }
+.logo { display: flex; align-items: center; gap: var(--space-2); font-family: var(--font-display); font-size: var(--text-sm); font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text); text-decoration: none; }
+.logo__mark { width: 28px; height: 28px; border: 2px solid var(--color-primary); border-radius: var(--radius-sm); display: flex; align-items: center; justify-content: center; color: var(--color-primary); font-family: var(--font-display); font-size: 11px; font-weight: 600; }
+.header-actions { display: flex; align-items: center; gap: var(--space-2); }
+.btn-icon { width: 36px; height: 36px; display: flex; align-items: center; justify-content: center; border-radius: var(--radius-md); color: var(--color-text-muted); transition: background var(--transition), color var(--transition); }
+.btn-icon:hover { background: var(--color-surface-offset); color: var(--color-text); }
+
+/* VIEWS */
+.view { display: none; }
+.view.active { display: block; }
+
+/* LOCK */
+.lock-screen { min-height: calc(100dvh - 56px); display: flex; flex-direction: column; align-items: center; justify-content: center; padding: var(--space-8) var(--space-4); text-align: center; }
+.lock-screen h1 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; letter-spacing: -0.02em; margin-bottom: var(--space-2); }
+.lock-screen p { color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-8); max-width: 36ch; margin-inline: auto; }
+.lock-icon { width: 56px; height: 56px; border: 2px solid var(--color-border); border-radius: var(--radius-lg); display: flex; align-items: center; justify-content: center; color: var(--color-text-faint); margin-inline: auto; margin-bottom: var(--space-6); }
+
+/* FORMS */
+.form-group { display: flex; flex-direction: column; gap: var(--space-2); margin-bottom: var(--space-4); }
+.form-label { font-size: var(--text-xs); font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--color-text-muted); }
+.form-input { background: var(--color-surface-offset); border: 1px solid var(--color-border); border-radius: var(--radius-md); padding: var(--space-3) var(--space-4); font-size: var(--text-sm); color: var(--color-text); transition: border-color var(--transition), box-shadow var(--transition); width: 100%; }
+.form-input:focus { outline: none; border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-bg); }
+.form-input::placeholder { color: var(--color-text-faint); }
+.form-input.error { border-color: var(--color-error); }
+.form-row { display: grid; gap: var(--space-3); }
+.form-row--2 { grid-template-columns: 1fr 1fr; }
+.form-row--3 { grid-template-columns: 2fr 1fr 1fr; }
+
+/* BUTTONS */
+.btn { display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2); padding: var(--space-3) var(--space-5); border-radius: var(--radius-md); font-size: var(--text-sm); font-weight: 500; font-family: var(--font-body); transition: background var(--transition), color var(--transition), box-shadow var(--transition), transform var(--transition); min-height: 44px; white-space: nowrap; user-select: none; }
+.btn:active { transform: scale(0.98); }
+.btn-primary { background: var(--color-primary); color: var(--color-text-inverse); }
+.btn-primary:hover { background: var(--color-primary-hover); }
+.btn-secondary { background: var(--color-surface-2); color: var(--color-text); border: 1px solid var(--color-border); }
+.btn-secondary:hover { background: var(--color-surface-offset); }
+.btn-ghost { color: var(--color-text-muted); }
+.btn-ghost:hover { color: var(--color-text); background: var(--color-surface-offset); }
+.btn-danger { background: var(--color-error-bg); color: var(--color-error); border: 1px solid rgba(224,92,92,0.25); }
+.btn-danger:hover { background: var(--color-error); color: #fff; }
+.btn--full { width: 100%; }
+.btn--sm { padding: var(--space-2) var(--space-3); font-size: var(--text-xs); min-height: 34px; }
+
+/* INLINE MSG */
+.inline-msg { display: flex; align-items: center; gap: var(--space-2); padding: var(--space-3) var(--space-4); border-radius: var(--radius-md); font-size: var(--text-sm); margin-bottom: var(--space-4); opacity: 0; transform: translateY(-4px); transition: opacity var(--transition), transform var(--transition); }
+.inline-msg.show { opacity: 1; transform: translateY(0); }
+.inline-msg.error { background: var(--color-error-bg); color: var(--color-error); border: 1px solid rgba(224,92,92,0.2); }
+.inline-msg.success { background: var(--color-success-bg); color: var(--color-success); border: 1px solid rgba(76,175,114,0.2); }
+.inline-msg.info { background: var(--color-primary-bg); color: var(--color-primary); border: 1px solid var(--color-primary-border); }
+@keyframes shake { 0%,100%{transform:translateX(0)} 20%,60%{transform:translateX(-6px)} 40%,80%{transform:translateX(6px)} }
+.shake { animation: shake 0.35s ease; }
+
+/* PASS GROUP */
+.pass-group { display: flex; gap: var(--space-2); max-width: 360px; margin-inline: auto; margin-bottom: var(--space-4); }
+.pass-group .form-input { flex: 1; }
+
+/* CARD */
+.card { background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-5); box-shadow: var(--shadow-sm); }
+.card + .card { margin-top: var(--space-4); }
+
+/* SECTION HEADING */
+.section-heading { font-family: var(--font-display); font-size: var(--text-xs); font-weight: 600; text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-muted); margin-bottom: var(--space-4); padding-bottom: var(--space-3); border-bottom: 1px solid var(--color-divider); }
+
+/* TABS */
+.tabs { display: flex; gap: var(--space-1); border-bottom: 1px solid var(--color-divider); margin-bottom: var(--space-6); overflow-x: auto; scrollbar-width: none; }
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn { padding: var(--space-3) var(--space-4); font-size: var(--text-sm); font-weight: 500; color: var(--color-text-muted); border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: color var(--transition), border-color var(--transition); border-radius: 0; font-family: var(--font-display); letter-spacing: 0.03em; }
+.tab-btn:hover { color: var(--color-text); }
+.tab-btn.active { color: var(--color-primary); border-bottom-color: var(--color-primary); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; }
+
+/* BADGE */
+.badge { display: inline-flex; align-items: center; padding: 2px var(--space-2); border-radius: var(--radius-full); font-size: var(--text-xs); font-weight: 500; font-family: var(--font-display); }
+.badge-amber { background: var(--color-primary-bg); color: var(--color-primary); border: 1px solid var(--color-primary-border); }
+.badge-green { background: var(--color-success-bg); color: var(--color-success); }
+.badge-red { background: var(--color-error-bg); color: var(--color-error); }
+
+/* SCORE TABLE */
+.score-table { width: 100%; border-collapse: collapse; }
+.score-table th { font-family: var(--font-display); font-size: var(--text-xs); text-transform: uppercase; letter-spacing: 0.1em; color: var(--color-text-faint); padding: var(--space-3) var(--space-4); text-align: left; border-bottom: 1px solid var(--color-divider); font-weight: 500; }
+.score-table td { padding: var(--space-3) var(--space-4); font-size: var(--text-sm); border-bottom: 1px solid var(--color-divider); vertical-align: middle; }
+.score-table tr:last-child td { border-bottom: none; }
+.score-table tbody tr:hover { background: var(--color-surface-offset); }
+
+/* ITEM ROW (draggable) */
+.item-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border: 1px solid var(--color-divider); border-radius: var(--radius-md); margin-bottom: var(--space-2); }
+.item-row__drag { color: var(--color-text-faint); cursor: grab; }
+.item-row__num { font-family: var(--font-display); font-size: var(--text-xs); color: var(--color-text-faint); min-width: 22px; }
+.item-row__name { flex: 1; font-size: var(--text-sm); font-weight: 500; }
+.item-row__actions { display: flex; align-items: center; gap: var(--space-2); }
+
+/* REGISTRANT ROW */
+.reg-row { display: flex; align-items: center; gap: var(--space-3); padding: var(--space-3) var(--space-4); background: var(--color-surface-2); border: 1px solid var(--color-divider); border-radius: var(--radius-md); margin-bottom: var(--space-2); }
+.reg-row__num { font-family: var(--font-display); font-size: var(--text-xs); color: var(--color-text-faint); min-width: 22px; font-variant-numeric: tabular-nums; }
+.reg-row__name { font-weight: 500; font-size: var(--text-sm); flex: 1; }
+.reg-row__team { font-family: var(--font-display); font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* LOADER */
+.loader { display: flex; align-items: center; justify-content: center; gap: var(--space-3); padding: var(--space-10); color: var(--color-text-muted); font-size: var(--text-sm); }
+@keyframes spin { to { transform: rotate(360deg); } }
+.spinner { width: 18px; height: 18px; border: 2px solid var(--color-border); border-top-color: var(--color-primary); border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+/* GRID */
+.admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: var(--space-5); }
+@media (max-width: 768px) { .admin-grid { grid-template-columns: 1fr; } .form-row--2, .form-row--3 { grid-template-columns: 1fr; } }
+
+/* PAGE */
+.page { padding: var(--space-8) 0 var(--space-16); }
+
+/* STAT PILLS */
+.stat-row { display: flex; gap: var(--space-4); flex-wrap: wrap; margin-bottom: var(--space-6); }
+.stat-pill { display: flex; flex-direction: column; background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: var(--space-4) var(--space-5); min-width: 100px; }
+.stat-pill__num { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; color: var(--color-primary); font-variant-numeric: tabular-nums; line-height: 1; }
+.stat-pill__label { font-size: var(--text-xs); color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-top: var(--space-1); }
+
+/* EMPTY */
+.empty-state { text-align: center; padding: var(--space-10) var(--space-4); color: var(--color-text-faint); font-size: var(--text-sm); border: 1px dashed var(--color-divider); border-radius: var(--radius-lg); }
+</style>
+</head>
+<body>
+
+<a href="#main" class="sr-only" style="position:absolute;top:var(--space-2);left:var(--space-2);padding:var(--space-2) var(--space-4);background:var(--color-primary);color:var(--color-text-inverse);border-radius:var(--radius-md);z-index:9999;font-size:var(--text-sm);">Skip to content</a>
+
+<header class="site-header">
+  <div class="site-header__inner">
+    <span class="logo">
+      <div class="logo__mark" aria-hidden="true">JC</div>
+      Admin Panel
+    </span>
+    <div class="header-actions">
+      <span id="adminBadge" style="display:none;" class="badge badge-green">Authenticated</span>
+      <button class="btn-icon" id="themeToggle" aria-label="Toggle theme">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+      </button>
+      <button class="btn btn-ghost btn--sm" id="logoutBtn" style="display:none;" onclick="logout()">Log out</button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+
+  <!-- ══════════════════════════════════════════
+       VIEW: ADMIN LOGIN
+       ══════════════════════════════════════════ -->
+  <div id="view-login" class="view active">
+    <div class="lock-screen">
+      <div class="lock-icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+      </div>
+      <h1>Admin Access</h1>
+      <p>Enter your admin password to manage scores, items, and registrations.</p>
+      <div id="loginMsg" class="inline-msg" role="alert" aria-live="polite" style="max-width:360px;margin-inline:auto;"></div>
+      <div class="pass-group">
+        <input class="form-input" id="adminPassInput" type="password" placeholder="Admin password" autocomplete="current-password">
+        <button class="btn btn-primary" onclick="adminLogin()">Enter</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════════
+       VIEW: ADMIN DASHBOARD
+       ══════════════════════════════════════════ -->
+  <div id="view-admin" class="view">
+    <div class="page">
+      <div class="container">
+
+        <!-- Stats row -->
+        <div class="stat-row" id="statsRow">
+          <div class="stat-pill"><span class="stat-pill__num" id="statRegs">—</span><span class="stat-pill__label">Registered</span></div>
+          <div class="stat-pill"><span class="stat-pill__num" id="statScored">—</span><span class="stat-pill__label">Scored</span></div>
+          <div class="stat-pill"><span class="stat-pill__num" id="statItems">—</span><span class="stat-pill__label">Items</span></div>
+        </div>
+
+        <div class="tabs" role="tablist">
+          <button class="tab-btn active" role="tab" aria-selected="true" onclick="adminTab('scores',this)">Scores</button>
+          <button class="tab-btn" role="tab" aria-selected="false" onclick="adminTab('registrations',this)">Registrations</button>
+          <button class="tab-btn" role="tab" aria-selected="false" onclick="adminTab('items',this)">Item List</button>
+          <button class="tab-btn" role="tab" aria-selected="false" onclick="adminTab('settings',this)">Settings</button>
+        </div>
+
+        <!-- ── TAB: SCORES ── -->
+        <div id="atab-scores" class="tab-panel active">
+          <div class="admin-grid">
+            <!-- Post / Edit score -->
+            <div>
+              <div class="section-heading">Post Score</div>
+              <div class="card">
+                <div id="scoreMsg" class="inline-msg" role="alert" aria-live="polite"></div>
+                <div class="form-group">
+                  <label class="form-label" for="scoreParticipant">Participant</label>
+                  <select class="form-input" id="scoreParticipant">
+                    <option value="">— select participant —</option>
+                  </select>
+                </div>
+                <div class="form-row form-row--2">
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" for="scoreItems">Items found</label>
+                    <input class="form-input" id="scoreItems" type="number" min="0" max="10" placeholder="0–10" value="0">
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" for="scorePts">Score (pts)</label>
+                    <input class="form-input" id="scorePts" type="number" min="0" placeholder="e.g. 850" value="0">
+                  </div>
+                </div>
+                <div class="form-group" style="margin-top:var(--space-4);">
+                  <label class="form-label" for="scoreNotes">Notes (optional)</label>
+                  <input class="form-input" id="scoreNotes" type="text" placeholder="e.g. 3 items physical, 7 photo" maxlength="120">
+                </div>
+                <button class="btn btn-primary btn--full" onclick="postScore()">Post score to leaderboard</button>
+              </div>
+            </div>
+
+            <!-- Current scores -->
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4);">
+                <div class="section-heading" style="margin-bottom:0;border:none;">Current Scores</div>
+                <button class="btn btn-secondary btn--sm" onclick="loadScores()">Refresh</button>
+              </div>
+              <div class="card" style="overflow-x:auto;">
+                <div id="scoresLoader" class="loader"><div class="spinner"></div></div>
+                <table class="score-table" id="scoresTable" style="display:none;">
+                  <thead>
+                    <tr>
+                      <th>#</th><th>Name</th><th>Items</th><th>Score</th><th></th>
+                    </tr>
+                  </thead>
+                  <tbody id="scoresBody"></tbody>
+                </table>
+                <div id="scoresEmpty" class="empty-state" style="display:none;">No scores posted yet.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: REGISTRATIONS ── -->
+        <div id="atab-registrations" class="tab-panel">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);">
+            <div class="section-heading" style="margin-bottom:0;border:none;">All Registrations</div>
+            <button class="btn btn-secondary btn--sm" onclick="loadRegistrations()">Refresh</button>
+          </div>
+          <div id="regMsg" class="inline-msg" role="alert" aria-live="polite"></div>
+          <div id="regLoader" class="loader"><div class="spinner"></div> Loading…</div>
+          <div id="regListAdmin"></div>
+        </div>
+
+        <!-- ── TAB: ITEM LIST ── -->
+        <div id="atab-items" class="tab-panel">
+          <div class="admin-grid">
+            <!-- Add item -->
+            <div>
+              <div class="section-heading">Add Item</div>
+              <div class="card">
+                <div id="itemMsg" class="inline-msg" role="alert" aria-live="polite"></div>
+                <div class="form-group">
+                  <label class="form-label" for="itemName">Item name</label>
+                  <input class="form-input" id="itemName" type="text" placeholder="e.g. Red pen" maxlength="80">
+                </div>
+                <div class="form-row form-row--2">
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" for="itemType">Type</label>
+                    <select class="form-input" id="itemType">
+                      <option value="photo">Photo proof</option>
+                      <option value="physical">Physical item</option>
+                    </select>
+                  </div>
+                  <div class="form-group" style="margin-bottom:0;">
+                    <label class="form-label" for="itemPoints">Points</label>
+                    <input class="form-input" id="itemPoints" type="number" min="1" value="1" max="100">
+                  </div>
+                </div>
+                <button class="btn btn-primary btn--full" style="margin-top:var(--space-4);" onclick="addItem()">Add item</button>
+              </div>
+            </div>
+
+            <!-- Current items -->
+            <div>
+              <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-4);">
+                <div class="section-heading" style="margin-bottom:0;border:none;">Published Items</div>
+                <button class="btn btn-secondary btn--sm" onclick="loadItems()">Refresh</button>
+              </div>
+              <div id="itemLoader" class="loader"><div class="spinner"></div></div>
+              <div id="itemListAdmin"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ── TAB: SETTINGS ── -->
+        <div id="atab-settings" class="tab-panel">
+          <div style="max-width:480px;">
+            <div class="section-heading">Competition Settings</div>
+            <div class="card">
+              <div id="settingsMsg" class="inline-msg" role="alert" aria-live="polite"></div>
+
+              <div class="form-group">
+                <label class="form-label" for="settingCompPass">Competition passcode (shown to players)</label>
+                <input class="form-input" id="settingCompPass" type="text" placeholder="e.g. JACOB2026" style="text-transform:uppercase;letter-spacing:0.08em;">
+                <small style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-1);">This is the code players enter to unlock the competition view. Update it in both this admin panel and in jacob-challenge.html.</small>
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="settingStart">Competition start date/time</label>
+                <input class="form-input" id="settingStart" type="datetime-local">
+              </div>
+
+              <div class="form-group">
+                <label class="form-label" for="settingTitle">Event title / subtitle</label>
+                <input class="form-input" id="settingTitle" type="text" placeholder="e.g. Jacob Challenge 2026" maxlength="60">
+              </div>
+
+              <button class="btn btn-primary btn--full" onclick="saveSettings()">Save settings</button>
+            </div>
+
+            <div class="card" style="margin-top:var(--space-5);">
+              <div class="section-heading">Danger Zone</div>
+              <p style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-4);">These actions cannot be undone.</p>
+              <div style="display:flex;flex-direction:column;gap:var(--space-3);">
+                <button class="btn btn-danger" onclick="clearAllScores()">Clear all scores</button>
+                <button class="btn btn-danger" onclick="clearAllRegistrations()">Clear all registrations</button>
+                <button class="btn btn-danger" onclick="clearAllItems()">Clear all items</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ════════════════════════════════════════════════════════
+     FIREBASE + ADMIN LOGIC
+     ════════════════════════════════════════════════════════ -->
+<script type="module">
+// ──────────────────────────────────────────────
+// FIREBASE CONFIGURATION
+// ──────────────────────────────────────────────
+const FIREBASE_CONFIG = {
+  apiKey: "AIzaSyBq7GKxvicz7JU1MN37UqHYFWM3v8xOQds",
+  authDomain: "jacob-competition-2026.firebaseapp.com",
+  databaseURL: "https://jacob-competition-2026-default-rtdb.firebaseio.com",
+  projectId: "jacob-competition-2026",
+  storageBucket: "jacob-competition-2026.firebasestorage.app",
+  messagingSenderId: "379219369980",
+  appId: "1:379219369980:web:51156c590254a9ef2edc79",
+  measurementId: "G-YNM975YFWW"
+};
+
+// ──────────────────────────────────────────────
+// ADMIN PASSWORD — change this before deploying
+// This is separate from the competition password
+// ──────────────────────────────────────────────
+const ADMIN_PASSWORD = "ADMIN_SECRET_2026";
+
+// ──────────────────────────────────────────────
+// FIREBASE
+// ──────────────────────────────────────────────
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-app.js";
+import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-analytics.js";
+import {
+  getDatabase, ref, push, set, remove, get, onValue, serverTimestamp
+} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+
+let db = null;
+let analytics = null;
+
+function isConfigured() {
+  return !Object.values(FIREBASE_CONFIG).some(v => v.startsWith("REPLACE_"));
+}
+if (isConfigured()) {
+  try {
+    const app = initializeApp(FIREBASE_CONFIG);
+    try {
+      analytics = getAnalytics(app);
+    } catch (e) {
+      console.warn("Firebase analytics unavailable:", e);
+    }
+    db = getDatabase(app);
+  } catch(e) { console.error("Firebase init:", e); }
+}
+
+// ──────────────────────────────────────────────
+// THEME
+// ──────────────────────────────────────────────
+(function(){
+  const toggle = document.getElementById("themeToggle");
+  const root = document.documentElement;
+  let theme = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+  root.setAttribute("data-theme", theme);
+  toggle.innerHTML = theme === "dark"
+    ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`
+    : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  toggle.addEventListener("click", () => {
+    theme = theme === "dark" ? "light" : "dark";
+    root.setAttribute("data-theme", theme);
+    toggle.innerHTML = theme === "dark"
+      ? `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>`
+      : `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  });
+})();
+
+// ──────────────────────────────────────────────
+// LOGIN
+// ──────────────────────────────────────────────
+window.adminLogin = function() {
+  const input = document.getElementById("adminPassInput");
+  const msg   = document.getElementById("loginMsg");
+  hideMsg(msg);
+  if (input.value === ADMIN_PASSWORD) {
+    showView("admin");
+    document.getElementById("adminBadge").style.display = "inline-flex";
+    document.getElementById("logoutBtn").style.display  = "inline-flex";
+    if (db) { loadScores(); loadRegistrations(); loadItems(); loadStats(); }
+    else showGlobalError("Firebase not configured. Add your config values to both HTML files.");
+  } else {
+    showMsg(msg, "error", "Incorrect password.");
+    input.classList.add("shake");
+    input.addEventListener("animationend", () => input.classList.remove("shake"), {once:true});
+    input.value = "";
+  }
+};
+
+document.getElementById("adminPassInput").addEventListener("keydown", e => {
+  if (e.key === "Enter") window.adminLogin();
+});
+
+window.logout = function() {
+  showView("login");
+  document.getElementById("adminBadge").style.display = "none";
+  document.getElementById("logoutBtn").style.display  = "none";
+};
+
+// ──────────────────────────────────────────────
+// VIEW + TAB SWITCHING
+// ──────────────────────────────────────────────
+window.showView = function(name) {
+  document.querySelectorAll(".view").forEach(v => v.classList.remove("active"));
+  document.getElementById("view-" + name).classList.add("active");
+};
+
+window.adminTab = function(name, btn) {
+  document.querySelectorAll(".tab-btn").forEach(b => { b.classList.remove("active"); b.setAttribute("aria-selected","false"); });
+  document.querySelectorAll(".tab-panel").forEach(p => p.classList.remove("active"));
+  btn.classList.add("active"); btn.setAttribute("aria-selected","true");
+  document.getElementById("atab-" + name).classList.add("active");
+};
+
+// ──────────────────────────────────────────────
+// STATS
+// ──────────────────────────────────────────────
+async function loadStats() {
+  if (!db) return;
+  try {
+    const [regs, scores, items] = await Promise.all([
+      get(ref(db,"registrations")),
+      get(ref(db,"scores")),
+      get(ref(db,"items"))
+    ]);
+    document.getElementById("statRegs").textContent   = regs.exists()   ? Object.keys(regs.val()).length   : 0;
+    document.getElementById("statScored").textContent = scores.exists() ? Object.keys(scores.val()).length : 0;
+    document.getElementById("statItems").textContent  = items.exists()  ? Object.keys(items.val()).length  : 0;
+  } catch(e) { console.error(e); }
+}
+
+// ──────────────────────────────────────────────
+// SCORES
+// ──────────────────────────────────────────────
+window.postScore = async function() {
+  const msg    = document.getElementById("scoreMsg");
+  const selEl  = document.getElementById("scoreParticipant");
+  const itemsEl= document.getElementById("scoreItems");
+  const ptsEl  = document.getElementById("scorePts");
+  const notesEl= document.getElementById("scoreNotes");
+  const selVal = selEl.value;
+  hideMsg(msg);
+  if (!selVal) { showMsg(msg, "error", "Select a participant."); return; }
+  if (!db) { showMsg(msg, "error", "Firebase not connected."); return; }
+
+  const snap = await get(ref(db,"registrations"));
+  if (!snap.exists() || !snap.val()[selVal]) { showMsg(msg, "error", "Participant not found."); return; }
+  const p = snap.val()[selVal];
+
+  const totalItemsSnap = await get(ref(db,"items"));
+  const totalItems = totalItemsSnap.exists() ? Object.keys(totalItemsSnap.val()).length : 10;
+
+  try {
+    await set(ref(db, "scores/" + selVal), {
+      name: p.name,
+      team: p.team || "",
+      items: parseInt(itemsEl.value)||0,
+      totalItems,
+      score: parseInt(ptsEl.value)||0,
+      notes: notesEl.value.trim(),
+      updatedAt: serverTimestamp()
+    });
+    showMsg(msg, "success", `Score posted for ${p.name}.`);
+    loadScores(); loadStats();
+  } catch(e) {
+    showMsg(msg, "error", "Failed to post score. Check connection.");
+    console.error(e);
+  }
+};
+
+window.loadScores = async function() {
+  if (!db) return;
+  const loader = document.getElementById("scoresLoader");
+  const table  = document.getElementById("scoresTable");
+  const empty  = document.getElementById("scoresEmpty");
+  const body   = document.getElementById("scoresBody");
+  loader.style.display = "flex"; table.style.display = "none"; empty.style.display = "none";
+  try {
+    const snap = await get(ref(db,"scores"));
+    loader.style.display = "none";
+    if (!snap.exists()) { empty.style.display = "block"; return; }
+    const rows = Object.entries(snap.val()).sort((a,b) => (b[1].score||0) - (a[1].score||0));
+    body.innerHTML = rows.map(([id,r], i) => `
+      <tr>
+        <td style="font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-text-faint);">${i+1}</td>
+        <td><strong>${esc(r.name)}</strong><br><span style="font-size:var(--text-xs);color:var(--color-text-faint);">${esc(r.team||"")}</span></td>
+        <td style="font-family:var(--font-display);font-size:var(--text-xs);">${r.items??0}/${r.totalItems??10}</td>
+        <td style="font-family:var(--font-display);font-weight:600;color:var(--color-primary);">${r.score??0}</td>
+        <td>
+          <button class="btn btn-danger btn--sm" onclick="deleteScore('${id}','${esc(r.name)}')" aria-label="Delete score for ${esc(r.name)}">Remove</button>
+        </td>
+      </tr>`).join("");
+    table.style.display = "table";
+  } catch(e) { loader.style.display="none"; empty.style.display="block"; }
+};
+
+window.deleteScore = async function(id, name) {
+  if (!confirm(`Remove score for ${name}?`)) return;
+  if (!db) return;
+  try { await remove(ref(db, "scores/" + id)); loadScores(); loadStats(); }
+  catch(e) { alert("Error removing score."); }
+};
+
+// ──────────────────────────────────────────────
+// REGISTRATIONS
+// ──────────────────────────────────────────────
+window.loadRegistrations = async function() {
+  if (!db) return;
+  const loader = document.getElementById("regLoader");
+  const listEl = document.getElementById("regListAdmin");
+  const msgEl  = document.getElementById("regMsg");
+  loader.style.display = "flex"; listEl.innerHTML = "";
+  try {
+    const snap = await get(ref(db,"registrations"));
+    loader.style.display = "none";
+    if (!snap.exists()) {
+      listEl.innerHTML = `<div class="empty-state">No registrations yet.</div>`;
+      populateParticipantSelect({}); return;
+    }
+    const items = Object.entries(snap.val()).sort((a,b) => (a[1].registeredAt||0) - (b[1].registeredAt||0));
+    listEl.innerHTML = items.map(([id,r], i) => `
+      <div class="reg-row">
+        <span class="reg-row__num">${String(i+1).padStart(2,"0")}</span>
+        <span class="reg-row__name">${esc(r.name)}</span>
+        ${r.team ? `<span class="reg-row__team">${esc(r.team)}</span>` : ""}
+        <button class="btn btn-danger btn--sm" onclick="deleteRegistration('${id}','${esc(r.name)}')" aria-label="Delete ${esc(r.name)}">Remove</button>
+      </div>`).join("");
+    populateParticipantSelect(snap.val());
+  } catch(e) { loader.style.display="none"; showMsg(msgEl,"error","Failed to load registrations."); }
+};
+
+function populateParticipantSelect(data) {
+  const sel = document.getElementById("scoreParticipant");
+  const cur = sel.value;
+  sel.innerHTML = `<option value="">— select participant —</option>`;
+  Object.entries(data).sort((a,b)=>a[1].name.localeCompare(b[1].name)).forEach(([id,r]) => {
+    const opt = document.createElement("option");
+    opt.value = id; opt.textContent = r.name + (r.team ? ` (${r.team})` : "");
+    sel.appendChild(opt);
+  });
+  if (cur) sel.value = cur;
+}
+
+window.deleteRegistration = async function(id, name) {
+  if (!confirm(`Remove registration for ${name}? This will not remove their score.`)) return;
+  if (!db) return;
+  try { await remove(ref(db,"registrations/"+id)); loadRegistrations(); loadStats(); }
+  catch(e) { alert("Error."); }
+};
+
+// ──────────────────────────────────────────────
+// ITEMS
+// ──────────────────────────────────────────────
+window.addItem = async function() {
+  const msg    = document.getElementById("itemMsg");
+  const nameEl = document.getElementById("itemName");
+  const typeEl = document.getElementById("itemType");
+  const ptsEl  = document.getElementById("itemPoints");
+  hideMsg(msg);
+  const name = nameEl.value.trim();
+  if (!name) { showMsg(msg,"error","Item name is required."); nameEl.classList.add("error"); return; }
+  nameEl.classList.remove("error");
+  if (!db) { showMsg(msg,"error","Firebase not connected."); return; }
+  try {
+    const snap = await get(ref(db,"items"));
+    const order = snap.exists() ? Object.keys(snap.val()).length : 0;
+    await push(ref(db,"items"), {
+      name, photoRequired: typeEl.value === "photo",
+      points: parseInt(ptsEl.value)||1, order,
+      createdAt: serverTimestamp()
+    });
+    showMsg(msg,"success",`"${name}" added.`);
+    nameEl.value=""; loadItems(); loadStats();
+  } catch(e) { showMsg(msg,"error","Error adding item."); console.error(e); }
+};
+
+window.loadItems = async function() {
+  if (!db) return;
+  const loader = document.getElementById("itemLoader");
+  const listEl = document.getElementById("itemListAdmin");
+  loader.style.display="flex"; listEl.innerHTML="";
+  try {
+    const snap = await get(ref(db,"items"));
+    loader.style.display="none";
+    if (!snap.exists()) { listEl.innerHTML=`<div class="empty-state">No items added yet.</div>`; return; }
+    const items = Object.entries(snap.val()).sort((a,b)=>(a[1].order||0)-(b[1].order||0));
+    listEl.innerHTML = items.map(([id,item],i) => `
+      <div class="item-row">
+        <span class="item-row__num" style="font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-text-faint);min-width:22px;">${String(i+1).padStart(2,"0")}</span>
+        <span class="item-row__name">${esc(item.name)}</span>
+        <span class="badge ${item.photoRequired ? 'badge-amber':'badge-green'}">${item.photoRequired?'Photo':'Physical'}</span>
+        <span style="font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-primary);min-width:30px;text-align:right;">${item.points??1}pt</span>
+        <button class="btn btn-danger btn--sm" onclick="deleteItem('${id}','${esc(item.name)}')" aria-label="Delete ${esc(item.name)}">✕</button>
+      </div>`).join("");
+  } catch(e) { loader.style.display="none"; }
+};
+
+window.deleteItem = async function(id, name) {
+  if (!confirm(`Delete item "${name}"?`)) return;
+  if (!db) return;
+  try { await remove(ref(db,"items/"+id)); loadItems(); loadStats(); }
+  catch(e) { alert("Error."); }
+};
+
+// ──────────────────────────────────────────────
+// SETTINGS
+// ──────────────────────────────────────────────
+window.saveSettings = async function() {
+  const msg = document.getElementById("settingsMsg");
+  hideMsg(msg);
+  if (!db) { showMsg(msg,"error","Firebase not connected."); return; }
+  try {
+    await set(ref(db,"settings"), {
+      competitionPassword: document.getElementById("settingCompPass").value.trim().toUpperCase(),
+      startTime: document.getElementById("settingStart").value,
+      eventTitle: document.getElementById("settingTitle").value.trim(),
+      updatedAt: serverTimestamp()
+    });
+    showMsg(msg,"success","Settings saved to database.");
+  } catch(e) { showMsg(msg,"error","Error saving settings."); }
+};
+
+// load existing settings
+async function loadSettings() {
+  if (!db) return;
+  try {
+    const snap = await get(ref(db,"settings"));
+    if (!snap.exists()) return;
+    const s = snap.val();
+    if (s.competitionPassword) document.getElementById("settingCompPass").value = s.competitionPassword;
+    if (s.startTime) document.getElementById("settingStart").value = s.startTime;
+    if (s.eventTitle) document.getElementById("settingTitle").value = s.eventTitle;
+  } catch(e) {}
+}
+
+// ──────────────────────────────────────────────
+// DANGER ZONE
+// ──────────────────────────────────────────────
+window.clearAllScores = async function() {
+  if (!confirm("This will permanently delete ALL scores from the leaderboard. Are you sure?")) return;
+  if (!db) return;
+  try { await remove(ref(db,"scores")); loadScores(); loadStats(); alert("All scores cleared."); }
+  catch(e) { alert("Error."); }
+};
+window.clearAllRegistrations = async function() {
+  if (!confirm("This will permanently delete ALL registrations. Scores will NOT be deleted. Continue?")) return;
+  if (!db) return;
+  try { await remove(ref(db,"registrations")); loadRegistrations(); loadStats(); alert("All registrations cleared."); }
+  catch(e) { alert("Error."); }
+};
+window.clearAllItems = async function() {
+  if (!confirm("This will permanently delete ALL challenge items. Continue?")) return;
+  if (!db) return;
+  try { await remove(ref(db,"items")); loadItems(); loadStats(); alert("All items cleared."); }
+  catch(e) { alert("Error."); }
+};
+
+// ──────────────────────────────────────────────
+// HELPERS
+// ──────────────────────────────────────────────
+function esc(str) {
+  if (!str) return "";
+  return String(str).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function showMsg(el, type, text) {
+  el.className = `inline-msg ${type}`;
+  el.textContent = text;
+  requestAnimationFrame(() => el.classList.add("show"));
+}
+function hideMsg(el) { el.classList.remove("show"); el.className = "inline-msg"; }
+function showGlobalError(msg) {
+  const el = document.createElement("div");
+  el.style.cssText = "position:fixed;top:64px;left:0;right:0;background:var(--color-error-bg);color:var(--color-error);padding:var(--space-4);text-align:center;font-size:var(--text-sm);z-index:200;border-bottom:1px solid rgba(224,92,92,0.2);";
+  el.textContent = msg;
+  document.body.appendChild(el);
+}
+
+// after login, also load settings
+const origShowView = window.showView;
+window.showView = function(name) {
+  origShowView(name);
+  if (name === "admin") loadSettings();
+};
+</script>
+
+</body>
+</html>
