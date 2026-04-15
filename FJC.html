@@ -846,7 +846,7 @@ ul[role="list"] { list-style: none; }
               <li data-n="1">You will be assigned items one at a time from a pool of 40. Complete each item to receive the next.</li>
               <li data-n="2">Every item requires a photo. Take a clear photo of the item and submit it for admin review before you can advance.</li>
               <li data-n="3">An admin must approve your photo before it counts. If rejected, you can resubmit with a better photo.</li>
-              <li data-n="4">The competition passcode will be announced at the event. Enter it to unlock the challenge.</li>
+              <li data-n="4">The competition unlocks automatically when the countdown ends.</li>
               <li data-n="5">Jacobs and Guests compete on separate leaderboards. Score = sum of points from approved items.</li>
             </ul>
           </div>
@@ -879,7 +879,7 @@ ul[role="list"] { list-style: none; }
   </div>
 
   <!-- ══════════════════════════════════════════ -->
-  <!-- VIEW: COMPETITION (password protected)     -->
+  <!-- VIEW: COMPETITION (unlocks at start time)  -->
   <!-- ══════════════════════════════════════════ -->
   <div id="view-competition" class="view">
     <div class="page">
@@ -892,12 +892,9 @@ ul[role="list"] { list-style: none; }
               <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
             </div>
             <h2>Competition Locked</h2>
-            <p>The competition hasn't started yet. Enter the event passcode when Jacob announces it.</p>
+            <p>The competition will unlock automatically when the countdown ends.</p>
             <div id="compLockMsg" class="inline-msg" role="alert" aria-live="polite" style="max-width:360px;margin-inline:auto;"></div>
-            <div class="pass-group">
-              <input class="form-input" id="compPassInput" type="text" placeholder="Enter event passcode" autocomplete="off" style="text-transform:uppercase;letter-spacing:0.08em;">
-              <button class="btn btn-primary" onclick="unlockCompetition()">Unlock</button>
-            </div>
+            <p style="font-size:var(--text-xs);color:var(--color-text-faint);font-family:var(--font-display);letter-spacing:0.06em;text-transform:uppercase;">Open this tab after the timer ends and it will unlock automatically.</p>
           </div>
         </div>
 
@@ -1097,13 +1094,6 @@ const FIREBASE_CONFIG = {
   measurementId: "G-YNM975YFWW"
 };
 
-// ──────────────────────────────────────────────
-// COMPETITION PASSWORD
-// Change this to whatever passcode you want to announce at the event
-// ──────────────────────────────────────────────
-const COMPETITION_PASSWORD = "bocaJ2026";
-
-// ──────────────────────────────────────────────
 // COMPETITION START DATE/TIME  (ISO 8601)
 // e.g. "2026-05-15T14:00:00" for May 15 2026 at 2pm
 // ──────────────────────────────────────────────
@@ -1315,26 +1305,13 @@ function clearCompetitionSession() {
 }
 
 window.unlockCompetition = function(force = false) {
-  const input = document.getElementById("compPassInput");
-  const msg   = document.getElementById("compLockMsg");
-  const val   = input.value.trim().toUpperCase();
-  hideMsg(msg);
-  if (force || isCompetitionLive() || val === COMPETITION_PASSWORD.toUpperCase()) {
+  if (force || isCompetitionLive()) {
     window._compUnlocked = true;
     document.getElementById("compLockGate").style.display = "none";
     document.getElementById("compContent").style.display  = "block";
     loadNameSelector();
-  } else {
-    showMsg(msg, "error", "Incorrect passcode. Try again.");
-    input.classList.add("shake");
-    input.addEventListener("animationend", () => input.classList.remove("shake"), {once:true});
-    input.value = "";
   }
 };
-
-document.getElementById("compPassInput").addEventListener("keydown", e => {
-  if (e.key === "Enter") window.unlockCompetition();
-});
 
 // ──────────────────────────────────────────────
 // NAME SELECTOR
