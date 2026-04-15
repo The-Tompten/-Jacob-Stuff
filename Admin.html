@@ -265,10 +265,12 @@ input, select, textarea { font: inherit; color: inherit; }
           <div class="stat-pill"><span class="stat-pill__num" id="statRegs">—</span><span class="stat-pill__label">Registered</span></div>
           <div class="stat-pill"><span class="stat-pill__num" id="statScored">—</span><span class="stat-pill__label">Scored</span></div>
           <div class="stat-pill"><span class="stat-pill__num" id="statItems">—</span><span class="stat-pill__label">Items</span></div>
+          <div class="stat-pill" style="border-color:var(--color-primary-border);background:var(--color-primary-bg);"><span class="stat-pill__num" id="statPending">—</span><span class="stat-pill__label">Pending</span></div>
         </div>
 
         <div class="tabs" role="tablist">
           <button class="tab-btn active" role="tab" aria-selected="true" onclick="adminTab('scores',this)">Scores</button>
+          <button class="tab-btn" role="tab" aria-selected="false" id="reviewTabBtn" onclick="adminTab('reviews',this)">Photo Review <span id="reviewBadge" class="badge badge-amber" style="display:none;margin-left:4px;">0</span></button>
           <button class="tab-btn" role="tab" aria-selected="false" onclick="adminTab('registrations',this)">Registrations</button>
           <button class="tab-btn" role="tab" aria-selected="false" onclick="adminTab('items',this)">Item List</button>
           <button class="tab-btn" role="tab" aria-selected="false" onclick="adminTab('settings',this)">Settings</button>
@@ -326,6 +328,17 @@ input, select, textarea { font: inherit; color: inherit; }
               </div>
             </div>
           </div>
+        </div>
+
+        <!-- ── TAB: PHOTO REVIEW ── -->
+        <div id="atab-reviews" class="tab-panel">
+          <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--space-5);">
+            <div class="section-heading" style="margin-bottom:0;border:none;">Pending Photo Submissions</div>
+            <button class="btn btn-secondary btn--sm" onclick="loadSubmissions()">Refresh</button>
+          </div>
+          <div id="reviewMsg" class="inline-msg" role="alert" aria-live="polite"></div>
+          <div id="reviewLoader" class="loader" style="display:none;"><div class="spinner"></div> Loading…</div>
+          <div id="reviewList"><div class="empty-state">Load submissions to see pending photos.</div></div>
         </div>
 
         <!-- ── TAB: REGISTRATIONS ── -->
@@ -506,7 +519,15 @@ window.adminLogin = function() {
     showView("admin");
     document.getElementById("adminBadge").style.display = "inline-flex";
     document.getElementById("logoutBtn").style.display  = "inline-flex";
-    if (db) { loadScores(); loadRegistrations(); loadItems(); loadStats(); }
+    if (db) {
+      loadScores(); loadRegistrations(); loadItems(); loadStats(); loadSubmissions();
+      if (_subsLiveListener) _subsLiveListener();
+      _subsLiveListener = onValue(ref(db, "submissions"), snap => {
+        let n = 0;
+        if (snap.exists()) n = Object.values(snap.val()).filter(s => s.status === "pending").length;
+        updatePendingBadge(n);
+      });
+    }
     else showGlobalError("Firebase not configured. Add your config values to both HTML files.");
   } else {
     showMsg(msg, "error", "Incorrect password.");
@@ -547,15 +568,35 @@ window.adminTab = function(name, btn) {
 async function loadStats() {
   if (!db) return;
   try {
-    const [regs, scores, items] = await Promise.all([
+    const [regs, scores, items, subs] = await Promise.all([
       get(ref(db,"registrations")),
       get(ref(db,"scores")),
-      get(ref(db,"items"))
+      get(ref(db,"items")),
+      get(ref(db,"submissions"))
     ]);
     document.getElementById("statRegs").textContent   = regs.exists()   ? Object.keys(regs.val()).length   : 0;
-    document.getElementById("statScored").textContent = scores.exists() ? Object.keys(scores.val()).length : 0;
+    // scores are now nested under jacob/ guest/
+    let scoredCount = 0;
+    if (scores.exists()) {
+      const sv = scores.val();
+      if (sv.jacob) scoredCount += Object.keys(sv.jacob).length;
+      if (sv.guest) scoredCount += Object.keys(sv.guest).length;
+    }
+    document.getElementById("statScored").textContent = scoredCount;
     document.getElementById("statItems").textContent  = items.exists()  ? Object.keys(items.val()).length  : 0;
+    let pending = 0;
+    if (subs.exists()) {
+      pending = Object.values(subs.val()).filter(s => s.status === "pending").length;
+    }
+    updatePendingBadge(pending);
   } catch(e) { console.error(e); }
+}
+
+function updatePendingBadge(n) {
+  const badge = document.getElementById("reviewBadge");
+  const stat  = document.getElementById("statPending");
+  if (badge) { badge.textContent = n; badge.style.display = n > 0 ? "inline-flex" : "none"; }
+  if (stat)  stat.textContent = n;
 }
 
 // ──────────────────────────────────────────────
@@ -580,14 +621,15 @@ window.postScore = async function() {
   const totalItems = totalItemsSnap.exists() ? Object.keys(totalItemsSnap.val()).length : 10;
 
   try {
-    await set(ref(db, "scores/" + selVal), {
-      name: p.name,
-      team: p.team || "",
-      items: parseInt(itemsEl.value)||0,
+    const scoreType = p.type || "jacob";
+    await set(ref(db, "scores/" + scoreType + "/" + selVal), {
+      name:           p.name,
+      team:           p.team || "",
+      completedItems: parseInt(itemsEl.value)||0,
       totalItems,
-      score: parseInt(ptsEl.value)||0,
-      notes: notesEl.value.trim(),
-      updatedAt: serverTimestamp()
+      score:          parseInt(ptsEl.value)||0,
+      notes:          notesEl.value.trim(),
+      updatedAt:      serverTimestamp()
     });
     showMsg(msg, "success", `Score posted for ${p.name}.`);
     loadScores(); loadStats();
@@ -605,28 +647,33 @@ window.loadScores = async function() {
   const body   = document.getElementById("scoresBody");
   loader.style.display = "flex"; table.style.display = "none"; empty.style.display = "none";
   try {
-    const snap = await get(ref(db,"scores"));
-    loader.style.display = "none";
-    if (!snap.exists()) { empty.style.display = "block"; return; }
-    const rows = Object.entries(snap.val()).sort((a,b) => (b[1].score||0) - (a[1].score||0));
-    body.innerHTML = rows.map(([id,r], i) => `
+      const [snapJ, snapG] = await Promise.all([
+        get(ref(db,"scores/jacob")),
+        get(ref(db,"scores/guest"))
+      ]);
+      loader.style.display = "none";
+      const rowsJ = snapJ.exists() ? Object.entries(snapJ.val()).map(([id,r]) => [id, {...r, _type:"jacob"}]) : [];
+      const rowsG = snapG.exists() ? Object.entries(snapG.val()).map(([id,r]) => [id, {...r, _type:"guest"}]) : [];
+      const rows  = [...rowsJ, ...rowsG].sort((a,b) => (b[1].score||0) - (a[1].score||0));
+      if (!rows.length) { empty.style.display = "block"; return; }
+      body.innerHTML = rows.map(([id,r], i) => `
       <tr>
         <td style="font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-text-faint);">${i+1}</td>
-        <td><strong>${esc(r.name)}</strong><br><span style="font-size:var(--text-xs);color:var(--color-text-faint);">${esc(r.team||"")}</span></td>
-        <td style="font-family:var(--font-display);font-size:var(--text-xs);">${r.items??0}/${r.totalItems??10}</td>
+          <td><strong>${esc(r.name)}</strong><br><span style="font-size:var(--text-xs);color:var(--color-text-faint);">${esc(r.team||"")} <span class="badge ${r._type==='guest'?'badge-muted':'badge-amber'}" style="font-size:9px;">${r._type}</span></span></td>
+          <td style="font-family:var(--font-display);font-size:var(--text-xs);">${r.completedItems??0}/${r.totalItems??40}</td>
         <td style="font-family:var(--font-display);font-weight:600;color:var(--color-primary);">${r.score??0}</td>
         <td>
-          <button class="btn btn-danger btn--sm" onclick="deleteScore('${id}','${esc(r.name)}')" aria-label="Delete score for ${esc(r.name)}">Remove</button>
+            <button class="btn btn-danger btn--sm" onclick="deleteScore('${id}','${esc(r.name)}','${r._type}')" aria-label="Delete score for ${esc(r.name)}">Remove</button>
         </td>
       </tr>`).join("");
     table.style.display = "table";
   } catch(e) { loader.style.display="none"; empty.style.display="block"; }
 };
 
-window.deleteScore = async function(id, name) {
+window.deleteScore = async function(id, name, type) {
   if (!confirm(`Remove score for ${name}?`)) return;
   if (!db) return;
-  try { await remove(ref(db, "scores/" + id)); loadScores(); loadStats(); }
+  try { await remove(ref(db, "scores/" + (type||"jacob") + "/" + id)); loadScores(); loadStats(); }
   catch(e) { alert("Error removing score."); }
 };
 
@@ -652,6 +699,8 @@ window.loadRegistrations = async function() {
         <span class="reg-row__num">${String(i+1).padStart(2,"0")}</span>
         <span class="reg-row__name">${esc(r.name)}</span>
         ${r.team ? `<span class="reg-row__team">${esc(r.team)}</span>` : ""}
+        <span class="badge ${r.type === 'guest' ? 'badge-muted' : 'badge-amber'}" style="font-size:10px;">${r.type === 'guest' ? 'Guest' : 'Jacob'}</span>
+        <span class="reg-row__team">${id.slice(-4).toUpperCase()}</span>
         <button class="btn btn-danger btn--sm" onclick="deleteRegistration('${id}','${esc(r.name)}')" aria-label="Delete ${esc(r.name)}">Remove</button>
       </div>`).join("");
     populateParticipantSelect(snap.val());
@@ -664,7 +713,12 @@ function populateParticipantSelect(data) {
   sel.innerHTML = `<option value="">— select participant —</option>`;
   Object.entries(data).sort((a,b)=>a[1].name.localeCompare(b[1].name)).forEach(([id,r]) => {
     const opt = document.createElement("option");
-    opt.value = id; opt.textContent = r.name + (r.team ? ` (${r.team})` : "");
+    const shortId = id.slice(-4).toUpperCase();
+    opt.value = id;
+    opt.textContent = r.name
+      + (r.team ? ` (${r.team})` : "")
+      + ` [${r.type === "guest" ? "Guest" : "Jacob"}]`
+      + ` · ${shortId}`;
     sel.appendChild(opt);
   });
   if (cur) sel.value = cur;
@@ -732,6 +786,145 @@ window.deleteItem = async function(id, name) {
 };
 
 // ──────────────────────────────────────────────
+// PHOTO SUBMISSIONS — review, approve, reject
+// ──────────────────────────────────────────────
+window.loadSubmissions = async function() {
+  if (!db) return;
+  const loader = document.getElementById("reviewLoader");
+  const listEl = document.getElementById("reviewList");
+  const msgEl  = document.getElementById("reviewMsg");
+  loader.style.display = "flex"; listEl.innerHTML = "";
+  try {
+    const snap = await get(ref(db, "submissions"));
+    loader.style.display = "none";
+    if (!snap.exists()) {
+      listEl.innerHTML = `<div class="empty-state">No submissions yet.</div>`;
+      updatePendingBadge(0); return;
+    }
+    const all = Object.entries(snap.val())
+      .sort((a,b) => (a[1].submittedAt||0) - (b[1].submittedAt||0));
+    const pending  = all.filter(([,s]) => s.status === "pending");
+    const reviewed = all.filter(([,s]) => s.status !== "pending");
+    updatePendingBadge(pending.length);
+
+    const renderRow = ([id, sub]) => `
+      <div class="card" id="rev-${id}" style="margin-bottom:var(--space-3);">
+        <div style="display:flex;align-items:flex-start;gap:var(--space-4);flex-wrap:wrap;">
+          <a href="${esc(sub.photoURL)}" target="_blank" rel="noopener noreferrer" style="flex-shrink:0;" title="Open full size">
+            <img src="${esc(sub.photoURL)}" alt="Submission photo"
+              style="width:120px;height:90px;object-fit:cover;border-radius:var(--radius-md);border:1px solid var(--color-border);display:block;">
+          </a>
+          <div style="flex:1;min-width:160px;">
+            <div style="font-weight:600;font-size:var(--text-sm);margin-bottom:var(--space-1);">${esc(sub.participantName)}</div>
+            <span class="badge ${sub.participantType === 'guest' ? 'badge-muted' : 'badge-amber'}" style="margin-bottom:var(--space-2);font-size:10px;">${esc(sub.participantType||'jacob')}</span>
+            <div style="font-size:var(--text-sm);color:var(--color-text-muted);margin-bottom:var(--space-1);">
+              Item&nbsp;<strong style="color:var(--color-text);">${esc(sub.itemName)}</strong>
+            </div>
+            <div style="font-size:var(--text-xs);color:var(--color-text-faint);font-family:var(--font-display);">
+              #${(sub.itemIndex||0)+1} &middot; run ${(sub.runId||"").slice(-4).toUpperCase() || "----"} &middot; ${sub.submittedAt ? new Date(sub.submittedAt).toLocaleTimeString() : "—"}
+            </div>
+            ${sub.status !== "pending" ? `<div style="margin-top:var(--space-2);"><span class="badge ${sub.status === 'approved' ? 'badge-green' : 'badge-red'}">${esc(sub.status)}</span>${sub.adminNote ? `<span style="font-size:var(--text-xs);color:var(--color-text-faint);margin-left:var(--space-2);">${esc(sub.adminNote)}</span>` : ""}</div>` : ""}
+          </div>
+          ${sub.status === "pending" ? `
+          <div style="display:flex;flex-direction:column;gap:var(--space-2);flex-shrink:0;">
+            <button class="btn btn-primary btn--sm" onclick="approveSubmission('${id}','${esc(sub.runId || sub.participantId)}','${esc(sub.registrationId || "")}',${sub.itemIndex||0})">
+              ✓ Approve
+            </button>
+            <div style="display:flex;gap:var(--space-2);align-items:center;">
+              <input class="form-input" type="text" placeholder="Reason (optional)" id="rejectNote-${id}"
+                style="font-size:var(--text-xs);padding:var(--space-2) var(--space-3);width:140px;" maxlength="100">
+              <button class="btn btn-danger btn--sm" onclick="rejectSubmission('${id}','${esc(sub.runId || sub.participantId)}')">✕</button>
+            </div>
+          </div>` : ""}
+        </div>
+      </div>`;
+
+    const pendingHTML  = pending.length  ? `<div class="section-heading">Pending (${pending.length})</div>` + pending.map(renderRow).join("") : "";
+    const reviewedHTML = reviewed.length ? `<div class="section-heading" style="margin-top:var(--space-6);">Reviewed (${reviewed.length})</div>` + reviewed.map(renderRow).join("") : "";
+    listEl.innerHTML   = (pendingHTML + reviewedHTML) || `<div class="empty-state">No submissions yet.</div>`;
+  } catch(e) {
+    loader.style.display = "none";
+    showMsg(msgEl, "error", "Failed to load submissions.");
+    console.error(e);
+  }
+};
+
+window.approveSubmission = async function(subId, runId, registrationId, itemIndex) {
+  if (!db) return;
+  try {
+    const pSnap = await get(ref(db, "competitionParticipants/" + runId));
+    if (!pSnap.exists()) { alert("Participant not found."); return; }
+    const p = pSnap.val();
+
+    const item        = (p.shuffledItems || [])[itemIndex] || {};
+    const itemPoints  = item.points || 1;
+    const newCompleted = (p.completedItems || 0) + 1;
+    const newScore     = (p.score || 0) + itemPoints;
+    const newIndex     = (p.currentItemIndex || 0) + 1;
+    const totalItems   = (p.shuffledItems || []).length;
+
+    // Mark submission approved
+    await set(ref(db, "submissions/" + subId + "/status"), "approved");
+    await set(ref(db, "submissions/" + subId + "/reviewedAt"), serverTimestamp());
+
+    // Advance participant to next item
+    await set(ref(db, "competitionParticipants/" + runId), {
+      ...p,
+      currentItemIndex:    newIndex,
+      completedItems:      newCompleted,
+      score:               newScore,
+      currentSubmissionId: null
+    });
+
+    // Update best score for the registration only if this run beats the current best.
+    const scoreType = p.type || "jacob";
+    const leaderboardId = registrationId || p.registrationId || runId;
+    const scoreRef = ref(db, "scores/" + scoreType + "/" + leaderboardId);
+    const bestSnap = await get(scoreRef);
+    const best = bestSnap.exists() ? bestSnap.val() : null;
+    const shouldWriteBest = !best
+      || newScore > (best.score || 0)
+      || (newScore === (best.score || 0) && newCompleted > (best.completedItems || 0));
+    if (shouldWriteBest) {
+      await set(scoreRef, {
+        name:           p.name,
+        team:           p.team || "",
+        completedItems: newCompleted,
+        totalItems,
+        score:          newScore,
+        bestRunId:      runId,
+        updatedAt:      serverTimestamp()
+      });
+    }
+
+    loadSubmissions(); loadStats();
+  } catch(e) {
+    alert("Error approving submission.");
+    console.error(e);
+  }
+};
+
+window.rejectSubmission = async function(subId, runId) {
+  if (!db) return;
+  const noteEl = document.getElementById("rejectNote-" + subId);
+  const note   = noteEl ? noteEl.value.trim() : "";
+  try {
+    await set(ref(db, "submissions/" + subId + "/status"), "rejected");
+    await set(ref(db, "submissions/" + subId + "/adminNote"), note || "Photo not accepted. Please try again with a clearer photo.");
+    await set(ref(db, "submissions/" + subId + "/reviewedAt"), serverTimestamp());
+    // Clear participant's pending submission so they can resubmit
+    await set(ref(db, "competitionParticipants/" + runId + "/currentSubmissionId"), null);
+    loadSubmissions(); loadStats();
+  } catch(e) {
+    alert("Error rejecting submission.");
+    console.error(e);
+  }
+};
+
+// Real-time listener: badge count updates when submissions change
+let _subsLiveListener = null;
+
+// ──────────────────────────────────────────────
 // SETTINGS
 // ──────────────────────────────────────────────
 window.saveSettings = async function() {
@@ -766,9 +959,9 @@ async function loadSettings() {
 // DANGER ZONE
 // ──────────────────────────────────────────────
 window.clearAllScores = async function() {
-  if (!confirm("This will permanently delete ALL scores from the leaderboard. Are you sure?")) return;
+  if (!confirm("This will permanently delete ALL scores from both leaderboards. Are you sure?")) return;
   if (!db) return;
-  try { await remove(ref(db,"scores")); loadScores(); loadStats(); alert("All scores cleared."); }
+  try { await remove(ref(db,"scores")); await remove(ref(db,"competitionParticipants")); await remove(ref(db,"submissions")); loadScores(); loadStats(); loadSubmissions(); alert("All scores, participants, and submissions cleared."); }
   catch(e) { alert("Error."); }
 };
 window.clearAllRegistrations = async function() {

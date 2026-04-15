@@ -668,6 +668,101 @@ ul[role="list"] { list-style: none; }
   .leaderboard-table th:nth-child(3),
   .leaderboard-table td:nth-child(3) { display: none; }
 }
+
+/* ═══ PARTICIPANT TYPE TOGGLE ═══ */
+.type-toggle {
+  display: flex; gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+.type-toggle__btn {
+  flex: 1; padding: var(--space-2) var(--space-3);
+  font-size: var(--text-xs); font-weight: 600;
+  font-family: var(--font-display); letter-spacing: 0.06em; text-transform: uppercase;
+  background: transparent; color: var(--color-text-muted);
+  border: none; cursor: pointer;
+  transition: background var(--transition), color var(--transition);
+}
+.type-toggle__btn.active { background: var(--color-primary); color: var(--color-text-inverse); }
+.type-toggle__btn:not(.active):hover { background: var(--color-surface-offset); color: var(--color-text); }
+
+/* ═══ NAME GATE ═══ */
+.name-gate {
+  text-align: center; padding: var(--space-12) var(--space-4);
+  max-width: 420px; margin-inline: auto;
+}
+.name-gate h2 { font-family: var(--font-display); font-size: var(--text-lg); font-weight: 600; margin-bottom: var(--space-2); }
+.name-gate p { color: var(--color-text-muted); font-size: var(--text-sm); margin-bottom: var(--space-6); max-width: 36ch; margin-inline: auto; }
+
+/* ═══ CHALLENGE CARD ═══ */
+.challenge-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-md);
+  margin-bottom: var(--space-4);
+}
+.challenge-card__item-num { font-family: var(--font-display); font-size: var(--text-xs); color: var(--color-text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: var(--space-2); }
+.challenge-card__item-name { font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-3); line-height: 1.2; }
+.challenge-card__points { font-family: var(--font-display); font-size: var(--text-sm); color: var(--color-primary); margin-bottom: var(--space-5); }
+.challenge-card__progress { height: 4px; background: var(--color-surface-offset); border-radius: var(--radius-full); overflow: hidden; margin-bottom: var(--space-5); }
+.challenge-card__progress-fill { height: 100%; background: var(--color-primary); border-radius: var(--radius-full); transition: width 0.6s ease; }
+
+/* ═══ UPLOAD AREA ═══ */
+.upload-area {
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: var(--space-8) var(--space-4);
+  text-align: center; cursor: pointer;
+  transition: border-color var(--transition), background var(--transition);
+  position: relative;
+}
+.upload-area:hover { border-color: var(--color-primary); background: var(--color-primary-bg); }
+.upload-area input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.upload-area__icon { color: var(--color-text-faint); margin-inline: auto; margin-bottom: var(--space-3); }
+.upload-area__label { font-size: var(--text-sm); color: var(--color-text-muted); }
+.upload-area__sub { font-size: var(--text-xs); color: var(--color-text-faint); margin-top: var(--space-1); font-family: var(--font-display); }
+.upload-area__preview { max-height: 220px; object-fit: contain; border-radius: var(--radius-md); margin-inline: auto; display: none; pointer-events: none; }
+.upload-progress { height: 4px; background: var(--color-surface-offset); border-radius: var(--radius-full); overflow: hidden; margin-top: var(--space-3); display: none; }
+.upload-progress__fill { height: 100%; background: var(--color-primary); border-radius: var(--radius-full); width: 0%; transition: width 0.3s ease; }
+
+/* ═══ SUBMISSION STATUS ═══ */
+.sub-status {
+  border-radius: var(--radius-lg); padding: var(--space-6);
+  text-align: center; margin-top: var(--space-4); display: none;
+}
+.sub-status.pending { background: var(--color-primary-bg); border: 1px solid var(--color-primary-border); }
+.sub-status.approved { background: var(--color-success-bg); border: 1px solid rgba(76,175,114,0.25); }
+.sub-status.rejected { background: var(--color-error-bg); border: 1px solid rgba(224,92,92,0.2); }
+.sub-status__icon { margin-inline: auto; margin-bottom: var(--space-3); }
+.sub-status__title { font-family: var(--font-display); font-weight: 600; font-size: var(--text-sm); margin-bottom: var(--space-1); }
+.sub-status__body { font-size: var(--text-xs); color: var(--color-text-muted); }
+
+/* ═══ COMPLETION SCREEN ═══ */
+.completion-screen { text-align: center; padding: var(--space-16) var(--space-4); }
+.completion-screen h2 { font-family: var(--font-display); font-size: var(--text-xl); font-weight: 600; margin-bottom: var(--space-3); }
+.completion-screen p { color: var(--color-text-muted); font-size: var(--text-sm); max-width: 40ch; margin-inline: auto; }
+
+/* ═══ LEADERBOARD SUB-TABS ═══ */
+.lb-subtabs { display: flex; gap: var(--space-2); margin-bottom: var(--space-4); }
+.lb-subtab {
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-md);
+  font-size: var(--text-xs); font-weight: 600; font-family: var(--font-display);
+  letter-spacing: 0.05em; text-transform: uppercase;
+  background: var(--color-surface-2); border: 1px solid var(--color-border);
+  color: var(--color-text-muted);
+  transition: background var(--transition), color var(--transition);
+}
+.lb-subtab.active { background: var(--color-primary); color: var(--color-text-inverse); border-color: transparent; }
+.lb-subtab:not(.active):hover { background: var(--color-surface-offset); color: var(--color-text); }
+
+/* ═══ DUAL REG LISTS ═══ */
+@media (max-width: 600px) {
+  #regListsGrid { grid-template-columns: 1fr !important; }
+}
 </style>
 </head>
 <body>
@@ -725,7 +820,14 @@ ul[role="list"] { list-style: none; }
             <h2>Register</h2>
             <div id="registerMsg" class="inline-msg" role="alert" aria-live="polite"></div>
             <div class="form-group">
-              <label class="form-label" for="regName">Your name / Jacob variant</label>
+              <label class="form-label">Participant type</label>
+              <div class="type-toggle" role="group" aria-label="Participant type">
+                <button class="type-toggle__btn active" id="typeJacob" onclick="setRegType('jacob',this)" type="button">Jacob</button>
+                <button class="type-toggle__btn" id="typeGuest" onclick="setRegType('guest',this)" type="button">Guest</button>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="regName">Your name</label>
               <input class="form-input" id="regName" type="text" placeholder="e.g. Jacob, Jakob, Jake…" autocomplete="off" maxlength="40">
             </div>
             <div class="form-group">
@@ -741,23 +843,34 @@ ul[role="list"] { list-style: none; }
           <div class="card">
             <div class="section-heading">Rules</div>
             <ul class="rules-list" id="rulesList">
-              <li data-n="1">Collect as many items on the checklist as possible within the time limit.</li>
-              <li data-n="2">Photo proof required for all items. Physical items must be presented to a judge.</li>
-              <li data-n="3">The competition password will be announced at the event to unlock the challenge interface.</li>
-              <li data-n="4">Scores are entered manually by the admin — no automated scoring.</li>
-              <li data-n="5">The leaderboard updates in real time as scores are posted.</li>
+              <li data-n="1">You will be assigned items one at a time from a pool of 40. Complete each item to receive the next.</li>
+              <li data-n="2">Every item requires a photo. Take a clear photo of the item and submit it for admin review before you can advance.</li>
+              <li data-n="3">An admin must approve your photo before it counts. If rejected, you can resubmit with a better photo.</li>
+              <li data-n="4">The competition passcode will be announced at the event. Enter it to unlock the challenge.</li>
+              <li data-n="5">Jacobs and Guests compete on separate leaderboards. Score = sum of points from approved items.</li>
             </ul>
           </div>
         </div>
 
-        <!-- Who's registered -->
-        <div class="registrant-list" style="margin-top:var(--space-6);">
-          <div class="registrant-list__header">
-            <h3>Registered</h3>
-            <span class="registrant-count" id="regCount">0</span>
+        <!-- Who's registered — Jacob + Guest split -->
+        <div style="margin-top:var(--space-6);display:grid;gap:var(--space-5);grid-template-columns:1fr 1fr;" id="regListsGrid">
+          <div class="registrant-list">
+            <div class="registrant-list__header">
+              <h3>Jacobs</h3>
+              <span class="registrant-count" id="regCountJacob">0</span>
+            </div>
+            <div id="regListJacob">
+              <div class="empty-list">No Jacobs yet. Be first.</div>
+            </div>
           </div>
-          <div id="regList">
-            <div class="empty-list">No registrations yet. Be the first.</div>
+          <div class="registrant-list">
+            <div class="registrant-list__header">
+              <h3>Guests</h3>
+              <span class="registrant-count" id="regCountGuest">0</span>
+            </div>
+            <div id="regListGuest">
+              <div class="empty-list">No guests yet.</div>
+            </div>
           </div>
         </div>
 
@@ -790,6 +903,25 @@ ul[role="list"] { list-style: none; }
 
         <!-- Competition content (shown after unlock) -->
         <div id="compContent" style="display:none;">
+
+          <!-- ── NAME SELECTOR GATE (shown first) ── -->
+          <div id="nameSelectorGate">
+            <div class="name-gate">
+              <h2>Who are you?</h2>
+              <p>Select your registered name to start a round. If names repeat, use the team and tag in the list to pick the right player.</p>
+              <div id="nameGateMsg" class="inline-msg" role="alert" aria-live="polite" style="text-align:left;"></div>
+              <div class="form-group" style="text-align:left;">
+                <label class="form-label" for="nameSelector">Your name</label>
+                <select class="form-input" id="nameSelector">
+                  <option value="">— select your name —</option>
+                </select>
+              </div>
+              <button class="btn btn-primary btn--full" onclick="joinCompetition()">Start round</button>
+            </div>
+          </div>
+
+          <!-- ── MAIN COMPETITION UI (shown after name selected) ── -->
+          <div id="compMain" style="display:none;">
           <div class="status-row">
             <div class="status-dot live"></div>
             <span class="status-text">Competition live</span>
@@ -797,13 +929,71 @@ ul[role="list"] { list-style: none; }
           </div>
 
           <div class="tabs" role="tablist">
-            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-leaderboard" onclick="switchTab('leaderboard',this)">Leaderboard</button>
-            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-items" onclick="switchTab('items',this)">Item List</button>
+            <button class="tab-btn active" role="tab" aria-selected="true" aria-controls="tab-challenge" onclick="switchTab('challenge',this)">My Challenge</button>
+            <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-leaderboard" onclick="switchTab('leaderboard',this)">Leaderboard</button>
             <button class="tab-btn" role="tab" aria-selected="false" aria-controls="tab-timer" onclick="switchTab('timer',this)">Timer</button>
           </div>
 
+          <!-- TAB: My Challenge -->
+          <div id="tab-challenge" class="tab-panel active" role="tabpanel">
+            <!-- Loader while joining -->
+            <div class="loader" id="challengeLoader" style="padding:var(--space-16);">
+              <div class="spinner"></div> Loading your challenge…
+            </div>
+
+            <!-- Item + upload card (shown after join) -->
+            <div class="challenge-card" id="challengeCard" style="display:none;">
+              <div class="challenge-card__item-num" id="challengeItemNum">Item 1 of 40</div>
+              <div class="challenge-card__item-name" id="challengeItemName">—</div>
+              <div class="challenge-card__points" id="challengeItemPoints">1 pt</div>
+              <div class="challenge-card__progress">
+                <div class="challenge-card__progress-fill" id="challengeProgress" style="width:0%;"></div>
+              </div>
+
+              <!-- Upload section -->
+              <div id="uploadSection">
+                <p style="font-size:var(--text-xs);color:var(--color-text-muted);margin-bottom:var(--space-3);font-family:var(--font-display);text-transform:uppercase;letter-spacing:0.06em;">
+                  Photo proof required — take a clear photo of this item
+                </p>
+                <div class="upload-area" id="uploadArea">
+                  <input type="file" id="photoInput" accept="image/*" capture="environment" onchange="onPhotoSelected(event)" aria-label="Select photo">
+                  <svg class="upload-area__icon" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+                  <div class="upload-area__label">Tap to take a photo or choose from gallery</div>
+                  <div class="upload-area__sub">Admin must approve before you get your next item</div>
+                  <img class="upload-area__preview" id="photoPreview" alt="selected photo preview">
+                </div>
+                <div class="upload-progress" id="uploadProgress">
+                  <div class="upload-progress__fill" id="uploadProgressFill"></div>
+                </div>
+                <div id="uploadMsg" class="inline-msg" role="alert" aria-live="polite" style="margin-top:var(--space-3);margin-bottom:0;"></div>
+                <button class="btn btn-primary btn--full" id="submitPhotoBtn" onclick="submitPhoto()" style="margin-top:var(--space-4);display:none;">
+                  Submit photo for review
+                </button>
+              </div>
+
+              <!-- Submission status -->
+              <div class="sub-status" id="subStatus">
+                <div class="sub-status__icon" id="subStatusIcon"></div>
+                <div class="sub-status__title" id="subStatusTitle"></div>
+                <div class="sub-status__body" id="subStatusBody"></div>
+                <button class="btn btn-secondary" id="subRetryBtn" style="margin-top:var(--space-4);display:none;" onclick="retryPhoto()">Take another photo</button>
+              </div>
+            </div>
+
+            <!-- Completion screen -->
+            <div class="completion-screen" id="completionScreen" style="display:none;">
+              <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.5" style="margin:0 auto var(--space-5);" aria-hidden="true"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+              <h2>Challenge Complete!</h2>
+              <p id="completionText">You completed all items.</p>
+              <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;margin-top:var(--space-6);">
+                <button class="btn btn-primary" onclick="playAgain()">Play again</button>
+                <button class="btn btn-secondary" onclick="changePlayer()">Change player</button>
+              </div>
+            </div>
+          </div>
+
           <!-- TAB: Leaderboard -->
-          <div id="tab-leaderboard" class="tab-panel active" role="tabpanel">
+          <div id="tab-leaderboard" class="tab-panel" role="tabpanel">
             <div class="refresh-row">
               <div class="section-heading" style="margin-bottom:0; border:none;">Live Rankings</div>
               <div style="display:flex;align-items:center;gap:var(--space-3);">
@@ -814,32 +1004,38 @@ ul[role="list"] { list-style: none; }
                 </button>
               </div>
             </div>
-            <div class="card" style="overflow-x:auto; margin-top:var(--space-4);">
+
+            <div class="lb-subtabs" role="group" aria-label="Leaderboard type">
+              <button class="lb-subtab active" id="lbSubJacob" onclick="switchLbTab('jacob',this)">Jacob Rankings</button>
+              <button class="lb-subtab" id="lbSubGuest" onclick="switchLbTab('guest',this)">Guest Rankings</button>
+            </div>
+
+            <!-- Jacob leaderboard panel -->
+            <div id="lb-panel-jacob" class="card" style="overflow-x:auto;">
               <div id="lbLoader" class="loader"><div class="spinner"></div> Loading scores…</div>
-              <table class="leaderboard-table" id="lbTable" style="display:none;" aria-label="Competition leaderboard">
-                <thead>
-                  <tr>
-                    <th class="rank-cell">#</th>
-                    <th>Name</th>
-                    <th>Team</th>
-                    <th>Items</th>
-                    <th style="text-align:right;">Score</th>
-                  </tr>
-                </thead>
+              <table class="leaderboard-table" id="lbTable" style="display:none;" aria-label="Jacob leaderboard">
+                <thead><tr>
+                  <th class="rank-cell">#</th><th>Name</th><th>Team</th><th>Items</th><th style="text-align:right;">Score</th>
+                </tr></thead>
                 <tbody id="lbBody"></tbody>
               </table>
               <div id="lbEmpty" class="leaderboard-empty" style="display:none;">
-                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" style="margin:0 auto var(--space-3);color:var(--color-text-faint);" aria-hidden="true"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-                No scores posted yet. Check back soon.
+                No Jacob scores yet. Be the first!
               </div>
             </div>
-          </div>
 
-          <!-- TAB: Item list -->
-          <div id="tab-items" class="tab-panel" role="tabpanel">
-            <div class="section-heading">Challenge Items</div>
-            <div id="itemsListView" class="card">
-              <div class="loader"><div class="spinner"></div> Loading…</div>
+            <!-- Guest leaderboard panel -->
+            <div id="lb-panel-guest" class="card" style="overflow-x:auto; display:none;">
+              <div id="lbLoaderGuest" class="loader"><div class="spinner"></div> Loading scores…</div>
+              <table class="leaderboard-table" id="lbTableGuest" style="display:none;" aria-label="Guest leaderboard">
+                <thead><tr>
+                  <th class="rank-cell">#</th><th>Name</th><th>Team</th><th>Items</th><th style="text-align:right;">Score</th>
+                </tr></thead>
+                <tbody id="lbBodyGuest"></tbody>
+              </table>
+              <div id="lbEmptyGuest" class="leaderboard-empty" style="display:none;">
+                No guest scores yet.
+              </div>
             </div>
           </div>
 
@@ -859,11 +1055,13 @@ ul[role="list"] { list-style: none; }
               <p style="font-size:var(--text-xs);color:var(--color-text-faint);margin-top:var(--space-6);font-family:var(--font-display);">Timer is local to this device only.</p>
             </div>
           </div>
-        </div>
 
-      </div>
-    </div>
-  </div>
+          </div><!-- /compMain -->
+        </div><!-- /compContent -->
+
+      </div><!-- /container -->
+    </div><!-- /page -->
+  </div><!-- /view-competition -->
 
 </main>
 
@@ -919,8 +1117,12 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.12.0/firebas
 import {
   getDatabase, ref, push, set, onValue, get, serverTimestamp
 } from "https://www.gstatic.com/firebasejs/12.12.0/firebase-database.js";
+import {
+  getStorage, ref as storageRef, uploadBytesResumable, getDownloadURL
+} from "https://www.gstatic.com/firebasejs/12.12.0/firebase-storage.js";
 
 let db = null;
+let storage = null;
 let configOk = false;
 let analytics = null;
 
@@ -937,6 +1139,7 @@ if (isConfigured()) {
       console.warn("Firebase analytics unavailable:", e);
     }
     db = getDatabase(app);
+    storage = getStorage(app);
     configOk = true;
   } catch(e) {
     console.error("Firebase init failed:", e);
@@ -979,6 +1182,9 @@ window.showView = function(name) {
   document.querySelectorAll("[id^='nav-']").forEach(b => b.style.color = "");
   const activeNav = document.getElementById("nav-" + name);
   if (activeNav) activeNav.style.color = "var(--color-primary)";
+  if (name === "competition" && isCompetitionLive() && !window._compUnlocked) {
+    window.unlockCompetition(true);
+  }
   if (name === "competition" && window._compUnlocked) loadLeaderboard();
 };
 
@@ -997,6 +1203,10 @@ window.showView = function(name) {
       document.getElementById("cd-min").textContent  = "00";
       document.getElementById("cd-sec").textContent  = "00";
       if (msg) msg.textContent = "Competition has started!";
+      if (!window._compUnlocked) {
+        if (typeof window.unlockCompetition === "function") window.unlockCompetition(true);
+        else setTimeout(() => typeof window.unlockCompetition === "function" && window.unlockCompetition(true), 0);
+      }
       return;
     }
     const d = Math.floor(diff / 86400000);
@@ -1016,12 +1226,25 @@ window.showView = function(name) {
 // ──────────────────────────────────────────────
 // REGISTRATION
 // ──────────────────────────────────────────────
+const SESSION_RUN_KEY = "fjc_run_id";
+const SESSION_REG_KEY = "fjc_registration_id";
+
+window._regType = "jacob";
+window.setRegType = function(type, btn) {
+  window._regType = type;
+  document.querySelectorAll(".type-toggle__btn").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("regName").placeholder =
+    type === "jacob" ? "e.g. Jacob, Jakob, Jake…" : "e.g. Alex, Sam, Jordan…";
+};
+
 window.registerParticipant = async function() {
   const nameInput = document.getElementById("regName");
   const teamInput = document.getElementById("regTeam");
   const msg       = document.getElementById("registerMsg");
   const name = nameInput.value.trim();
   const team = teamInput.value.trim();
+  const type = window._regType || "jacob";
 
   hideMsg(msg);
   if (!name) { showMsg(msg, "error", "Please enter your name."); nameInput.classList.add("error"); return; }
@@ -1038,18 +1261,7 @@ window.registerParticipant = async function() {
 
   try {
     const regRef = ref(db, "registrations");
-    const snapshot = await get(regRef);
-    // duplicate check
-    if (snapshot.exists()) {
-      const existing = Object.values(snapshot.val());
-      const dupe = existing.find(r => r.name.toLowerCase() === name.toLowerCase());
-      if (dupe) {
-        showMsg(msg, "info", `"${name}" is already registered.`);
-        btn.disabled = false; btn.textContent = "Register for the challenge";
-        return;
-      }
-    }
-    await push(regRef, { name, team, registeredAt: serverTimestamp() });
+    await push(regRef, { name, team, type, registeredAt: serverTimestamp() });
     showMsg(msg, "success", `Registered! Welcome, ${name}.`);
     nameInput.value = ""; teamInput.value = "";
   } catch(e) {
@@ -1060,23 +1272,30 @@ window.registerParticipant = async function() {
   btn.disabled = false; btn.textContent = "Register for the challenge";
 };
 
-// live registration list
+// live registration list — split into Jacob / Guest sections
 if (configOk) {
   onValue(ref(db, "registrations"), snap => {
-    const list = document.getElementById("regList");
-    const count = document.getElementById("regCount");
-    if (!snap.exists()) {
-      list.innerHTML = `<div class="empty-list">No registrations yet. Be the first.</div>`;
-      count.textContent = "0"; return;
+    const jacobs = [], guests = [];
+    if (snap.exists()) {
+      const items = Object.entries(snap.val()).sort((a,b) => (a[1].registeredAt||0) - (b[1].registeredAt||0));
+      items.forEach(([id, r]) => {
+        (r.type === "guest" ? guests : jacobs).push([id, r]);
+      });
     }
-    const items = Object.entries(snap.val()).sort((a,b) => (a[1].registeredAt||0) - (b[1].registeredAt||0));
-    count.textContent = items.length;
-    list.innerHTML = items.map(([id, r], i) => `
+
+    const renderList = (arr) => arr.length === 0 ? null : arr.map(([id, r], i) => `
       <div class="registrant-item">
         <span class="registrant-num">${String(i+1).padStart(2,"0")}</span>
         <span class="registrant-name">${esc(r.name)}</span>
         ${r.team ? `<span class="registrant-team">${esc(r.team)}</span>` : ""}
       </div>`).join("");
+
+    const jList = document.getElementById("regListJacob");
+    const gList = document.getElementById("regListGuest");
+    jList.innerHTML = renderList(jacobs) || `<div class="empty-list">No Jacobs yet. Be first.</div>`;
+    gList.innerHTML = renderList(guests) || `<div class="empty-list">No guests yet.</div>`;
+    document.getElementById("regCountJacob").textContent = jacobs.length;
+    document.getElementById("regCountGuest").textContent = guests.length;
   });
 }
 
@@ -1085,18 +1304,26 @@ if (configOk) {
 // ──────────────────────────────────────────────
 window._compUnlocked = false;
 
-window.unlockCompetition = function() {
+function isCompetitionLive() {
+  return Date.now() >= new Date(COMPETITION_START).getTime();
+}
+
+function clearCompetitionSession() {
+  sessionStorage.removeItem(SESSION_RUN_KEY);
+  sessionStorage.removeItem(SESSION_REG_KEY);
+  sessionStorage.removeItem("compParticipantId");
+}
+
+window.unlockCompetition = function(force = false) {
   const input = document.getElementById("compPassInput");
   const msg   = document.getElementById("compLockMsg");
   const val   = input.value.trim().toUpperCase();
   hideMsg(msg);
-  if (val === COMPETITION_PASSWORD.toUpperCase()) {
+  if (force || isCompetitionLive() || val === COMPETITION_PASSWORD.toUpperCase()) {
     window._compUnlocked = true;
     document.getElementById("compLockGate").style.display = "none";
     document.getElementById("compContent").style.display  = "block";
-    document.getElementById("compStatusSub").textContent  = new Date().toLocaleString();
-    loadLeaderboard();
-    loadItemsList();
+    loadNameSelector();
   } else {
     showMsg(msg, "error", "Incorrect passcode. Try again.");
     input.classList.add("shake");
@@ -1110,40 +1337,106 @@ document.getElementById("compPassInput").addEventListener("keydown", e => {
 });
 
 // ──────────────────────────────────────────────
-// LEADERBOARD
+// NAME SELECTOR
+// ──────────────────────────────────────────────
+async function loadNameSelector() {
+  const savedRunId = sessionStorage.getItem(SESSION_RUN_KEY);
+  const savedRegId = sessionStorage.getItem(SESSION_REG_KEY);
+  if (savedRunId && savedRegId && configOk) {
+    const snap = await get(ref(db, "competitionParticipants/" + savedRunId));
+    if (snap.exists() && snap.val().registrationId === savedRegId) {
+      document.getElementById("nameSelectorGate").style.display = "none";
+      document.getElementById("compMain").style.display = "block";
+      document.getElementById("compStatusSub").textContent = new Date().toLocaleString();
+      window._compParticipant = { ...snap.val(), id: savedRunId };
+      renderCurrentItem();
+      listenToMyParticipant();
+      loadLeaderboard();
+      return;
+    }
+    clearCompetitionSession();
+  }
+
+  if (!configOk) return;
+  try {
+    const snap = await get(ref(db, "registrations"));
+    const sel  = document.getElementById("nameSelector");
+    sel.disabled = false;
+    sel.innerHTML = `<option value="">— select your name —</option>`;
+    if (snap.exists()) {
+      Object.entries(snap.val())
+        .sort((a, b) => a[1].name.localeCompare(b[1].name))
+        .forEach(([id, r]) => {
+          const opt = document.createElement("option");
+          opt.value = id;
+          const shortId = id.slice(-4).toUpperCase();
+          opt.textContent = r.name
+            + (r.team ? ` (${r.team})` : "")
+            + ` [${r.type === "guest" ? "Guest" : "Jacob"}]`
+            + ` · ${shortId}`;
+          sel.appendChild(opt);
+        });
+    }
+  } catch(e) { console.error(e); }
+}
+
+window.joinCompetition = async function() {
+  const sel = document.getElementById("nameSelector");
+  const msg = document.getElementById("nameGateMsg");
+  const id  = sel.value;
+  hideMsg(msg);
+  if (!id) { showMsg(msg, "error", "Please select your name."); return; }
+
+  sel.disabled = true;
+  document.getElementById("nameSelectorGate").style.display = "none";
+  document.getElementById("compMain").style.display = "block";
+  document.getElementById("compStatusSub").textContent = new Date().toLocaleString();
+
+  await initParticipant(id, true);
+  loadLeaderboard();
+};
+
+// ──────────────────────────────────────────────
+// LEADERBOARD — dual Jacob / Guest
 // ──────────────────────────────────────────────
 window.loadLeaderboard = async function() {
   if (!configOk || !window._compUnlocked) return;
-  const loader = document.getElementById("lbLoader");
-  const table  = document.getElementById("lbTable");
-  const empty  = document.getElementById("lbEmpty");
-  const body   = document.getElementById("lbBody");
-  loader.style.display = "flex"; table.style.display = "none"; empty.style.display = "none";
+  loadLeaderboardForType("jacob");
+  loadLeaderboardForType("guest");
+  document.getElementById("lbLastUpdated").textContent = "Updated " + new Date().toLocaleTimeString();
+};
 
+async function loadLeaderboardForType(type) {
+  const suffix  = type === "guest" ? "Guest" : "";
+  const loader  = document.getElementById("lbLoader" + suffix);
+  const table   = document.getElementById("lbTable" + suffix);
+  const empty   = document.getElementById("lbEmpty" + suffix);
+  const body    = document.getElementById("lbBody" + suffix);
+  loader.style.display = "flex"; table.style.display = "none"; empty.style.display = "none";
   try {
-    const snap = await get(ref(db, "scores"));
+    const snap = await get(ref(db, "scores/" + type));
     loader.style.display = "none";
-    if (!snap.exists()) {
-      empty.style.display = "block"; return;
-    }
-    const rows = Object.values(snap.val())
-      .sort((a,b) => (b.score||0) - (a.score||0));
+    if (!snap.exists()) { empty.style.display = "block"; return; }
+    const rows = Object.values(snap.val()).sort((a, b) => (b.score||0) - (a.score||0));
     body.innerHTML = rows.map((r, i) => `
       <tr class="${i===0 ? 'rank-1':''}">
         <td class="rank-cell">${i+1}</td>
         <td class="name-cell">${esc(r.name)}</td>
         <td class="team-cell">${esc(r.team||"—")}</td>
-        <td class="items-cell">${r.items??0} / ${r.totalItems??10}</td>
+        <td class="items-cell">${r.completedItems??0} / ${r.totalItems??40}</td>
         <td class="score-cell">${r.score??0}</td>
       </tr>`).join("");
     table.style.display = "table";
-    document.getElementById("lbLastUpdated").textContent = "Updated " + new Date().toLocaleTimeString();
   } catch(e) {
-    loader.style.display = "none";
-    empty.style.display = "block";
-    empty.innerHTML = `<p style="color:var(--color-error)">Error loading scores. Check connection.</p>`;
-    console.error(e);
+    loader.style.display = "none"; empty.style.display = "block";
   }
+}
+
+window.switchLbTab = function(type, btn) {
+  document.querySelectorAll(".lb-subtab").forEach(b => b.classList.remove("active"));
+  btn.classList.add("active");
+  document.getElementById("lb-panel-jacob").style.display = type === "jacob" ? "block" : "none";
+  document.getElementById("lb-panel-guest").style.display = type === "guest" ? "block" : "none";
 };
 
 // live updates for leaderboard
@@ -1154,31 +1447,333 @@ if (configOk) {
 }
 
 // ──────────────────────────────────────────────
-// ITEMS LIST (loaded from Firebase so admin can edit)
+// COMPETITION ENGINE — init, items, photos
 // ──────────────────────────────────────────────
-async function loadItemsList() {
-  if (!configOk) return;
-  const container = document.getElementById("itemsListView");
-  try {
-    const snap = await get(ref(db, "items"));
-    if (!snap.exists()) {
-      container.innerHTML = `<p style="color:var(--color-text-muted);font-size:var(--text-sm);padding:var(--space-4);">No items posted yet. Check back after the admin publishes the list.</p>`;
+window._compParticipant = null;
+let _participantListener = null;
+let _submissionListener  = null;
+
+async function initParticipant(regId, forceNewRun = false) {
+  const savedRunId = sessionStorage.getItem(SESSION_RUN_KEY);
+  if (!forceNewRun && savedRunId) {
+    const snap = await get(ref(db, "competitionParticipants/" + savedRunId));
+    if (snap.exists() && snap.val().registrationId === regId) {
+      window._compParticipant = { ...snap.val(), id: savedRunId };
+      renderCurrentItem();
+      listenToMyParticipant();
       return;
     }
-    const items = Object.values(snap.val()).sort((a,b) => (a.order||0) - (b.order||0));
-    container.innerHTML = `
-      <div style="display:flex;flex-direction:column;gap:var(--space-2);">
-        ${items.map((item, i) => `
-          <div style="display:flex;align-items:center;gap:var(--space-3);padding:var(--space-3) 0;border-bottom:1px solid var(--color-divider);">
-            <span style="font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-text-faint);min-width:24px;font-variant-numeric:tabular-nums;">${String(i+1).padStart(2,"0")}</span>
-            <span style="font-size:var(--text-sm);font-weight:500;flex:1;">${esc(item.name)}</span>
-            ${item.photoRequired ? `<span class="badge badge-amber">Photo</span>` : `<span class="badge badge-muted">Physical</span>`}
-            <span style="font-family:var(--font-display);font-size:var(--text-xs);color:var(--color-primary);">${item.points??1} pt</span>
-          </div>`).join("")}
-      </div>`;
-  } catch(e) {
-    container.innerHTML = `<p style="color:var(--color-error);font-size:var(--text-sm);padding:var(--space-4);">Error loading items.</p>`;
   }
+
+  const [regSnap, itemsSnap] = await Promise.all([
+    get(ref(db, "registrations/" + regId)),
+    get(ref(db, "items"))
+  ]);
+  if (!regSnap.exists()) return;
+  const reg = regSnap.val();
+
+  const allItems = itemsSnap.exists()
+    ? Object.entries(itemsSnap.val()).map(([k, v]) => ({ id: k, ...v }))
+    : [];
+
+  // Fisher-Yates shuffle
+  const shuffled = [...allItems];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+
+  const runId = push(ref(db, "competitionParticipants")).key;
+
+  const data = {
+    registrationId: regId,
+    name: reg.name,
+    team: reg.team || "",
+    type: reg.type || "jacob",
+    shuffledItems: shuffled.map(item => ({
+      id: item.id,
+      name: item.name,
+      points: item.points || 1
+    })),
+    currentItemIndex:   0,
+    completedItems:     0,
+    score:              0,
+    currentSubmissionId: null,
+    joinedAt: serverTimestamp(),
+    status: "active"
+  };
+
+  await set(ref(db, "competitionParticipants/" + runId), data);
+  sessionStorage.setItem(SESSION_RUN_KEY, runId);
+  sessionStorage.setItem(SESSION_REG_KEY, regId);
+  window._compParticipant = { ...data, id: runId };
+  renderCurrentItem();
+  listenToMyParticipant();
+}
+
+function renderCurrentItem() {
+  const p          = window._compParticipant;
+  const loader     = document.getElementById("challengeLoader");
+  const card       = document.getElementById("challengeCard");
+  const completion = document.getElementById("completionScreen");
+  if (loader) loader.style.display = "none";
+
+  const items = p.shuffledItems || [];
+  const idx   = p.currentItemIndex || 0;
+
+  if (idx >= items.length) {
+    card.style.display       = "none";
+    completion.style.display = "block";
+    document.getElementById("completionText").textContent =
+      `You completed ${p.completedItems||0} item${p.completedItems!==1?'s':''} for ${p.score||0} points!`;
+    set(ref(db, "competitionParticipants/" + p.id + "/status"), "completed");
+    return;
+  }
+
+  const item = items[idx];
+  document.getElementById("challengeItemNum").textContent   = `Item ${idx + 1} of ${items.length}`;
+  document.getElementById("challengeItemName").textContent  = item.name;
+  document.getElementById("challengeItemPoints").textContent = `${item.points} pt${item.points !== 1 ? 's' : ''}`;
+  document.getElementById("challengeProgress").style.width  = `${(idx / items.length) * 100}%`;
+
+  card.style.display       = "block";
+  completion.style.display = "none";
+  resetUploadUI();
+
+  // If a pending/rejected submission exists, restore that state
+  if (p.currentSubmissionId) checkExistingSubmission();
+}
+
+async function checkExistingSubmission() {
+  const p   = window._compParticipant;
+  if (!p.currentSubmissionId) return;
+  const snap = await get(ref(db, "submissions/" + p.currentSubmissionId));
+  if (!snap.exists()) return;
+  const sub = snap.val();
+  if (sub.status === "pending") {
+    document.getElementById("uploadSection").style.display = "none";
+    showSubStatus("pending", "Waiting for admin approval…", "Your photo has been submitted. Hang tight!");
+    listenToCurrentSubmission(p.currentSubmissionId);
+  } else if (sub.status === "rejected") {
+    showSubStatus("rejected", "Photo rejected", sub.adminNote || "Please try again with a clearer photo.");
+    document.getElementById("subRetryBtn").style.display = "inline-flex";
+  }
+}
+
+function listenToMyParticipant() {
+  if (_participantListener) _participantListener();
+  _participantListener = onValue(ref(db, "competitionParticipants/" + window._compParticipant.id), snap => {
+    if (!snap.exists()) return;
+    const updated  = snap.val();
+    const prevIdx  = window._compParticipant.currentItemIndex || 0;
+    const newIdx   = updated.currentItemIndex || 0;
+    const prevId   = window._compParticipant.id;
+    window._compParticipant = { ...updated, id: prevId };
+    if (newIdx > prevIdx) {
+      if (_submissionListener) { _submissionListener(); _submissionListener = null; }
+      showSubStatus("approved", "Approved! ✓", "Nice work! Loading your next item…");
+      setTimeout(() => renderCurrentItem(), 1800);
+    }
+  });
+}
+
+function listenToCurrentSubmission(subId) {
+  if (_submissionListener) _submissionListener();
+  _submissionListener = onValue(ref(db, "submissions/" + subId), snap => {
+    if (!snap.exists()) return;
+    const sub = snap.val();
+    if (sub.status === "rejected") {
+      window._compParticipant.currentSubmissionId = null;
+      showSubStatus("rejected", "Photo rejected", sub.adminNote || "Please try again with a clearer photo.");
+      document.getElementById("subRetryBtn").style.display = "inline-flex";
+      if (_submissionListener) { _submissionListener(); _submissionListener = null; }
+    }
+  });
+}
+
+// ──────────────────────────────────────────────
+// PHOTO UPLOAD
+// ──────────────────────────────────────────────
+let _selectedBlob = null;
+
+window.onPhotoSelected = function(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const preview = document.getElementById("photoPreview");
+    preview.src = e.target.result;
+    preview.style.display = "block";
+    const area = document.getElementById("uploadArea");
+    area.querySelector(".upload-area__icon").style.display  = "none";
+    area.querySelector(".upload-area__label").style.display = "none";
+    area.querySelector(".upload-area__sub").style.display   = "none";
+  };
+  reader.readAsDataURL(file);
+
+  resizeImage(file, 1200).then(blob => {
+    _selectedBlob = blob;
+    document.getElementById("submitPhotoBtn").style.display = "block";
+  });
+};
+
+function resizeImage(file, maxPx) {
+  return new Promise(resolve => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let { width, height } = img;
+      if (width <= maxPx && height <= maxPx) {
+        const c = document.createElement("canvas");
+        c.width = width; c.height = height;
+        c.getContext("2d").drawImage(img, 0, 0);
+        c.toBlob(resolve, "image/jpeg", 0.82);
+        return;
+      }
+      if (width > height) { height = Math.round(height * maxPx / width); width = maxPx; }
+      else                { width  = Math.round(width  * maxPx / height); height = maxPx; }
+      const c = document.createElement("canvas");
+      c.width = width; c.height = height;
+      c.getContext("2d").drawImage(img, 0, 0, width, height);
+      c.toBlob(resolve, "image/jpeg", 0.82);
+    };
+    img.src = url;
+  });
+}
+
+window.submitPhoto = async function() {
+  if (!_selectedBlob) return;
+  const p     = window._compParticipant;
+  const btn   = document.getElementById("submitPhotoBtn");
+  const msgEl = document.getElementById("uploadMsg");
+  hideMsg(msgEl);
+  btn.disabled = true; btn.textContent = "Uploading…";
+
+  const progress = document.getElementById("uploadProgress");
+  const fill     = document.getElementById("uploadProgressFill");
+  progress.style.display = "block";
+
+  try {
+    const uuid      = crypto.randomUUID ? crypto.randomUUID() : Math.random().toString(36).slice(2);
+    const sRef      = storageRef(storage, `submissions/${p.id}/${uuid}.jpg`);
+    const uploadTask = uploadBytesResumable(sRef, _selectedBlob, { contentType: "image/jpeg" });
+
+    await new Promise((resolve, reject) => {
+      uploadTask.on("state_changed",
+        snap => { fill.style.width = ((snap.bytesTransferred / snap.totalBytes) * 100) + "%"; },
+        reject, resolve
+      );
+    });
+
+    const photoURL = await getDownloadURL(uploadTask.snapshot.ref);
+    const item     = (p.shuffledItems || [])[p.currentItemIndex || 0] || {};
+
+    const subRef = await push(ref(db, "submissions"), {
+      runId:           p.id,
+      registrationId:  p.registrationId,
+      participantId:   p.id,
+      participantName: p.name,
+      participantType: p.type || "jacob",
+      itemId:          item.id || "",
+      itemName:        item.name || "Unknown item",
+      itemIndex:       p.currentItemIndex || 0,
+      photoURL,
+      status:      "pending",
+      submittedAt: serverTimestamp()
+    });
+
+    // Save submission ID to participant record so admin can link back
+    await set(ref(db, "competitionParticipants/" + p.id + "/currentSubmissionId"), subRef.key);
+    window._compParticipant.currentSubmissionId = subRef.key;
+
+    progress.style.display = "none";
+    document.getElementById("uploadSection").style.display = "none";
+    showSubStatus("pending", "Submitted! Waiting for review…", "An admin will approve or reject your photo shortly.");
+    listenToCurrentSubmission(subRef.key);
+  } catch(e) {
+    console.error(e);
+    showMsg(msgEl, "error", "Upload failed. Check your connection and try again.");
+    btn.disabled = false; btn.textContent = "Submit photo for review";
+    fill.style.width = "0%";
+  }
+};
+
+function showSubStatus(type, title, body) {
+  const el = document.getElementById("subStatus");
+  el.className    = "sub-status " + type;
+  el.style.display = "block";
+  const icons = {
+    pending:  `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--color-primary)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`,
+    approved: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--color-success)" stroke-width="1.5"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>`,
+    rejected: `<svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--color-error)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>`
+  };
+  document.getElementById("subStatusIcon").innerHTML = icons[type] || "";
+  document.getElementById("subStatusTitle").textContent = title;
+  document.getElementById("subStatusBody").textContent  = body;
+}
+
+window.retryPhoto = function() {
+  window._compParticipant.currentSubmissionId = null;
+  resetUploadUI();
+  document.getElementById("subStatus").style.display   = "none";
+  document.getElementById("uploadSection").style.display = "block";
+};
+
+window.playAgain = async function() {
+  if (!window._compParticipant || !window._compParticipant.registrationId) return;
+  if (_participantListener) { _participantListener(); _participantListener = null; }
+  if (_submissionListener) { _submissionListener(); _submissionListener = null; }
+  document.getElementById("completionScreen").style.display = "none";
+  document.getElementById("challengeLoader").style.display = "flex";
+  await initParticipant(window._compParticipant.registrationId, true);
+};
+
+window.changePlayer = function() {
+  if (_participantListener) { _participantListener(); _participantListener = null; }
+  if (_submissionListener) { _submissionListener(); _submissionListener = null; }
+  clearCompetitionSession();
+  window._compParticipant = null;
+  resetUploadUI();
+  document.getElementById("challengeCard").style.display = "none";
+  document.getElementById("completionScreen").style.display = "none";
+  document.getElementById("compMain").style.display = "none";
+  document.getElementById("nameSelectorGate").style.display = "block";
+  const selector = document.getElementById("nameSelector");
+  selector.disabled = false;
+  selector.value = "";
+  loadNameSelector();
+};
+
+function resetUploadUI() {
+  _selectedBlob = null;
+  const inp = document.getElementById("photoInput");
+  if (inp) inp.value = "";
+  const prev = document.getElementById("photoPreview");
+  if (prev) { prev.style.display = "none"; prev.src = ""; }
+  const area = document.getElementById("uploadArea");
+  if (area) {
+    const icon  = area.querySelector(".upload-area__icon");
+    const label = area.querySelector(".upload-area__label");
+    const sub   = area.querySelector(".upload-area__sub");
+    if (icon)  icon.style.display  = "block";
+    if (label) label.style.display = "block";
+    if (sub)   sub.style.display   = "block";
+  }
+  const btn = document.getElementById("submitPhotoBtn");
+  if (btn) { btn.style.display = "none"; btn.disabled = false; btn.textContent = "Submit photo for review"; }
+  const prog = document.getElementById("uploadProgress");
+  if (prog) prog.style.display = "none";
+  const fill = document.getElementById("uploadProgressFill");
+  if (fill) fill.style.width = "0%";
+  const msgEl = document.getElementById("uploadMsg");
+  if (msgEl) hideMsg(msgEl);
+  const ss = document.getElementById("subStatus");
+  if (ss) { ss.style.display = "none"; ss.className = "sub-status"; }
+  const retry = document.getElementById("subRetryBtn");
+  if (retry) retry.style.display = "none";
+  const upSec = document.getElementById("uploadSection");
+  if (upSec) upSec.style.display = "block";
 }
 
 // ──────────────────────────────────────────────
