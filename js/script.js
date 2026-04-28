@@ -572,50 +572,6 @@ function closeProjectModal() {
 }
 
 // ===========================
-// FJC Redirect Prompt
-// ===========================
-function initFjcPrompt() {
-    const promptModal = document.getElementById('fjc-prompt-modal');
-    const closeBtn = document.getElementById('fjc-prompt-close');
-    const yesBtn = document.getElementById('fjc-prompt-yes');
-    const noBtn = document.getElementById('fjc-prompt-no');
-
-    if (!promptModal || !yesBtn || !noBtn || !closeBtn) {
-        return;
-    }
-
-    const showPrompt = () => {
-        promptModal.classList.add('active');
-    };
-
-    const hidePrompt = () => {
-        promptModal.classList.remove('active');
-    };
-
-    yesBtn.addEventListener('click', () => {
-        window.location.href = '/fjc';
-    });
-
-    noBtn.addEventListener('click', hidePrompt);
-    closeBtn.addEventListener('click', hidePrompt);
-
-    promptModal.addEventListener('click', (e) => {
-        if (e.target === promptModal) {
-            hidePrompt();
-        }
-    });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && promptModal.classList.contains('active')) {
-            hidePrompt();
-        }
-    });
-
-    // Delay slightly so it appears after the page settles.
-    setTimeout(showPrompt, 900);
-}
-
-// ===========================
 // Initialize
 // ===========================
 document.addEventListener('DOMContentLoaded', async () => {
@@ -726,8 +682,6 @@ document.addEventListener('DOMContentLoaded', async () => {
             contactForm.reset();
         });
     }
-
-    initFjcPrompt();
 });
 
 // ===========================
