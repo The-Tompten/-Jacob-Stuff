@@ -468,6 +468,8 @@
         "description": "For the third year in a row, I designed and built a haunted house for my neighborhood. This year it expanded to include new animatronics and a full storyline.",
         "year": "2025",
         "age": 15,
+        "size": "large",
+        "page": "main-projects/forest-of-fears-2025.html",
         "category": "halloween",
         "image": "assets/Photos/Halloween2025.jpg",
         "links": [
@@ -568,6 +570,34 @@
             {
                 "title": "Site",
                 "url": "https://www.team1729.org/"
+            }
+        ]
+    },
+    {
+        "title": "FRC 1729 2026 Competition Robot - GLADOS",
+        "description": "This year I designed and helped build 1729's 2026 Competition Robot, GLADOS. I also Drove the robot durig competitions. GLADOS has a 365 degree turret and can shoot 10+ balls per second, it can hold over 100 feul, and de-beach itself.",
+        "year": "2026",
+        "age": 15,
+        "size": "large",
+        "page": "main-projects/glados-2026.html",
+        "category": "robotics",
+        "image": "assets/Photos/2026.png",
+        "links": [
+            {
+                "title": "Website",
+                "url": "https://www.team1729.org/2026.html"
+            },
+            {
+                "title": "Competition Results",
+                "url": "https://www.thebluealliance.com/team/1729/2026"
+            },
+            {
+                "title": "Build Photos",
+                "url": "https://photos.app.goo.gl/6kntLwMXe3GgaegT7"
+            },
+            {
+                "title": "Competition CAD",
+                "url": "https://cad.onshape.com/documents/c98616fb41c4d6a557828fc8/w/428f3f6cdb72672b71e70310/e/1dcfaf42a00d75ba0686d591"
             }
         ]
     }

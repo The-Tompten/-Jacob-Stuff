@@ -987,6 +987,23 @@ p {
     margin-bottom: 2rem;
 }
 
+.projects-subtitle {
+    margin: 0 0 1.25rem;
+    font-size: 1.5rem;
+    color: var(--text-light);
+    letter-spacing: 0.02em;
+}
+
+.main-projects-section {
+    margin-bottom: 2rem;
+}
+
+.main-projects-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
 /* Category Filters */
 .category-filters {
     display: flex;
@@ -1092,6 +1109,45 @@ p {
     cursor: pointer;
     position: relative;
     box-shadow: 0 4px 15px rgba(0, 217, 255, 0.1);
+}
+
+.project-card-large {
+    display: grid;
+    grid-template-columns: minmax(240px, 300px) 1fr;
+    align-items: stretch;
+    min-height: 260px;
+}
+
+.project-card-large .project-image {
+    height: 100%;
+    min-height: 0;
+    aspect-ratio: 1 / 1;
+}
+
+.project-card-large .project-content {
+    padding: 1.35rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.project-card-large .project-title {
+    font-size: 1.65rem;
+    margin-bottom: 0.45rem;
+}
+
+.project-card-large .project-description {
+    font-size: 1.05rem;
+    line-height: 1.55;
+    margin-bottom: 0.75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.project-card-large .project-links {
+    margin-top: 0.5rem;
 }
 
 .project-card::before {
@@ -1248,11 +1304,17 @@ p {
     text-decoration: none;
     font-size: 0.95rem;
     transition: var(--transition-fast);
+    padding: 0.45rem 0.8rem;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 217, 255, 0.45);
+    background: rgba(0, 217, 255, 0.09);
 }
 
 .project-link:hover {
     color: var(--text-light);
-    gap: 0.7rem;
+    border-color: rgba(255, 107, 157, 0.65);
+    background: rgba(255, 107, 157, 0.16);
+    transform: translateY(-1px);
 }
 
 /* ===========================
@@ -1787,6 +1849,20 @@ p {
     
     .projects-grid {
         grid-template-columns: 1fr;
+    }
+
+    .project-card-large {
+        grid-template-columns: 1fr;
+        height: auto;
+    }
+
+    .project-card-large .project-image {
+        min-height: 220px;
+        aspect-ratio: auto;
+    }
+
+    .projects-subtitle {
+        font-size: 1.3rem;
     }
     
     .skills-grid {

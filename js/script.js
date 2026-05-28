@@ -373,9 +373,72 @@ function filterProjects(category) {
     displayProjects(filteredProjects, startExpanded);
 }
 
+function getProjectSize(project) {
+    return project.size === 'large' ? 'large' : 'small';
+}
+
+function createProjectCard(project, { isLarge = false, hidden = false } = {}) {
+    const projectCard = document.createElement('div');
+    projectCard.className = `project-card ${isLarge ? 'project-card-large' : 'project-card-small'}`;
+    projectCard.setAttribute('data-aos', 'fade-up');
+    projectCard.style.cursor = 'pointer';
+
+    if (hidden) {
+        projectCard.classList.add('hidden');
+    }
+
+    projectCard.innerHTML = `
+        <div class="project-image">
+            ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image-img">` : `<div class="project-image-placeholder">
+                ${getProjectIcon(project.title)}
+            </div>`}
+            ${project.category ? `<span class="project-category-tag">${project.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>` : ''}
+        </div>
+        <div class="project-content">
+            <div class="project-meta">
+                <span class="project-year">${project.year}${project.age ? ` • Age ${project.age}` : ''}</span>
+            </div>
+            <h3 class="project-title">${project.title}</h3>
+            <p class="project-description">${project.description}</p>
+            <div class="project-links">
+                ${project.links && project.links.length > 0 ? project.links.map(link => `<a href="${link.url}" class="project-link" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                        <polyline points="15 3 21 3 21 9"/>
+                        <line x1="10" y1="14" x2="21" y2="3"/>
+                    </svg>
+                    ${link.title}
+                </a>`).join('') : ''}
+            </div>
+        </div>
+    `;
+
+    projectCard.querySelectorAll('.project-link').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.stopPropagation();
+        });
+    });
+
+    projectCard.addEventListener('click', () => {
+        if (isLarge && project.page) {
+            window.location.href = project.page;
+            return;
+        }
+
+        openProjectModal(project);
+    });
+    observer.observe(projectCard);
+
+    return projectCard;
+}
+
 // Display projects
 function displayProjects(projects, startExpanded = false) {
+    const mainProjectsSection = document.getElementById('main-projects-section');
+    const mainProjectsGrid = document.getElementById('main-projects-grid');
     const projectsGrid = document.getElementById('projects-grid');
+
+    mainProjectsGrid.innerHTML = '';
     projectsGrid.innerHTML = '';
     
     // Set expanded state based on parameter
@@ -387,54 +450,30 @@ function displayProjects(projects, startExpanded = false) {
     
     // Invert file order so entries you list first appear at the bottom of the grid
     const reversedProjects = [...projects].reverse();
+    const mainProjects = reversedProjects.filter(project => getProjectSize(project) === 'large');
+    const smallProjects = reversedProjects.filter(project => getProjectSize(project) !== 'large');
+
+    if (mainProjects.length > 0) {
+        mainProjectsSection.style.display = 'block';
+        mainProjects.forEach(project => {
+            const projectCard = createProjectCard(project, { isLarge: true });
+            mainProjectsGrid.appendChild(projectCard);
+        });
+    } else {
+        mainProjectsSection.style.display = 'none';
+    }
     
-    reversedProjects.forEach((project, index) => {
-        const projectCard = document.createElement('div');
-        projectCard.className = 'project-card';
-        projectCard.setAttribute('data-aos', 'fade-up');
-        projectCard.style.cursor = 'pointer';
-        
-        // Hide projects after the first 3 only if not starting expanded
-        if (index >= 3 && !startExpanded) {
-            projectCard.classList.add('hidden');
-        }
-        
-        projectCard.innerHTML = `
-            <div class="project-image">
-                ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image-img">` : `<div class="project-image-placeholder">
-                    ${getProjectIcon(project.title)}
-                </div>`}
-                ${project.category ? `<span class="project-category-tag">${project.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>` : ''}
-            </div>
-            <div class="project-content">
-                <div class="project-meta">
-                    <span class="project-year">${project.year}${project.age ? ` • Age ${project.age}` : ''}</span>
-                </div>
-                <h3 class="project-title">${project.title}</h3>
-                <p class="project-description">${project.description}</p>
-                <div class="project-links">
-                    ${project.links && project.links.length > 0 ? project.links.map(link => `<a href="${link.url}" class="project-link" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
-                            <polyline points="15 3 21 3 21 9"/>
-                            <line x1="10" y1="14" x2="21" y2="3"/>
-                        </svg>
-                        ${link.title}
-                    </a>`).join('') : ''}
-                </div>
-            </div>
-        `;
-        
-        // Add click handler to open modal
-        projectCard.addEventListener('click', () => openProjectModal(project));
-        
+    smallProjects.forEach((project, index) => {
+        const projectCard = createProjectCard(project, {
+            isLarge: false,
+            hidden: index >= 3 && !startExpanded
+        });
         projectsGrid.appendChild(projectCard);
-        observer.observe(projectCard);
     });
     
     // Show/hide view more button
     const viewMoreBtn = document.getElementById('view-more-btn');
-    if (projects.length > 3) {
+    if (smallProjects.length > 3) {
         viewMoreBtn.style.display = 'inline-block';
         viewMoreBtn.textContent = 'View More Archives';
         viewMoreBtn.onclick = () => {
@@ -445,17 +484,17 @@ function displayProjects(projects, startExpanded = false) {
             }
             
             // Otherwise toggle expand/collapse for 'all' category
-            const hiddenCards = document.querySelectorAll('.project-card.hidden');
+            const hiddenCards = document.querySelectorAll('.project-card-small.hidden');
             if (hiddenCards.length > 0) {
                 hiddenCards.forEach(card => card.classList.remove('hidden'));
                 projectsGrid.classList.add('expanded');
                 viewMoreBtn.textContent = 'Show Less';
-                const firstNewCard = hiddenCards[0] || projectsGrid.querySelector('.project-card:nth-child(4)');
+                const firstNewCard = hiddenCards[0] || projectsGrid.querySelector('.project-card-small:nth-child(4)');
                 if (firstNewCard) {
                     firstNewCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }
             } else {
-                const allCards = document.querySelectorAll('.project-card');
+                const allCards = document.querySelectorAll('.project-card-small');
                 allCards.forEach((card, index) => {
                     if (index >= 3) {
                         card.classList.add('hidden');
@@ -711,6 +750,7 @@ To add a new project to your portfolio:
 Notes:
 - "id" must be unique
 - "year" can be any string (e.g., "2024", "2023-2024")
+- "size" can be "small" or "large" (large projects render in Main Projects as full-width banner tiles)
 - All fields in "links" are optional - use null if not available
 - Projects display in order of appearance in the JSON file
 */
