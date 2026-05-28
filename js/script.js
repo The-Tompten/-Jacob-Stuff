@@ -120,6 +120,7 @@ const navbar = document.getElementById('navbar');
 const mobileMenuToggle = document.getElementById('mobile-menu-toggle');
 const navLinks = document.querySelector('.nav-links');
 const navLinkElements = document.querySelectorAll('.nav-link');
+const navAnchors = document.querySelectorAll('.nav-links a');
 
 // Scroll effect
 let lastScroll = 0;
@@ -142,7 +143,7 @@ mobileMenuToggle.addEventListener('click', () => {
 });
 
 // Close mobile menu on link click
-navLinkElements.forEach(link => {
+navAnchors.forEach(link => {
     link.addEventListener('click', () => {
         mobileMenuToggle.classList.remove('active');
         navLinks.classList.remove('active');

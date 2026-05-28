@@ -9,7 +9,7 @@ if (mobileMenuToggle && navLinks) {
     });
 }
 
-document.querySelectorAll('.nav-link').forEach((link) => {
+document.querySelectorAll('.nav-links a').forEach((link) => {
     link.addEventListener('click', () => {
         if (!mobileMenuToggle || !navLinks) {
             return;
