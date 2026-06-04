@@ -600,5 +600,19 @@
                 "url": "https://cad.onshape.com/documents/c98616fb41c4d6a557828fc8/w/428f3f6cdb72672b71e70310/e/1dcfaf42a00d75ba0686d591"
             }
         ]
+    },
+    {
+        "title": "The Worlds First FRC Drum Turret",
+        "description": "I designed a drum turret for FRC in the offseason that can rotate 360 degrees and shoot up to 3 balls at once. it is powered by 6 kraken x60s",
+        "year": "2026",
+        "age": 15,
+        "category": "robotics",
+        "image": "assets/Photos/DrumTurret.png",
+        "links": [
+            {
+                "title": "CAD",
+                "url": "https://cad.onshape.com/documents/3bb1e0e260d5e2a0a596aac6/w/271019eee8e2ace68104ca2e/e/c4a853c879e2796553162ffe"
+            }
+        ]
     }
 ]
