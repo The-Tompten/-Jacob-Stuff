@@ -1066,6 +1066,34 @@ p {
     margin-bottom: 2rem;
 }
 
+.current-project-section {
+    display: none;
+    margin-bottom: 2.25rem;
+    padding: 1.25rem;
+    border: 1px solid rgba(0, 217, 255, 0.2);
+    border-radius: 18px;
+    background:
+        radial-gradient(circle at 18% 20%, rgba(0, 217, 255, 0.1), transparent 46%),
+        radial-gradient(circle at 82% 80%, rgba(255, 107, 157, 0.1), transparent 40%),
+        rgba(12, 15, 27, 0.75);
+}
+
+.current-project-header {
+    margin-bottom: 1rem;
+}
+
+.current-project-intro {
+    margin-top: 0.4rem;
+    font-size: 1rem;
+    color: var(--text-gray);
+}
+
+.current-project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+}
+
 .main-projects-grid {
     display: grid;
     grid-template-columns: 1fr;
@@ -1216,6 +1244,53 @@ p {
 
 .project-card-large .project-links {
     margin-top: 0.5rem;
+}
+
+.project-card-current {
+    grid-template-columns: minmax(320px, 440px) 1fr;
+    min-height: 360px;
+    border-color: rgba(0, 217, 255, 0.35);
+    box-shadow:
+        0 0 28px rgba(0, 217, 255, 0.2),
+        0 12px 40px rgba(0, 0, 0, 0.35);
+}
+
+.project-card-current .project-image {
+    min-height: 320px;
+}
+
+.project-card-current .project-content {
+    padding: 1.65rem 1.85rem;
+}
+
+.project-card-current .project-title {
+    font-size: 2rem;
+    margin-bottom: 0.65rem;
+}
+
+.project-card-current .project-description {
+    font-size: 1.1rem;
+    line-height: 1.7;
+    display: -webkit-box;
+    -webkit-line-clamp: 6;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.current-project-badge {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.35rem 0.72rem;
+    border-radius: 999px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: #07101d;
+    background: linear-gradient(135deg, #00D9FF 0%, #00FF94 100%);
+    box-shadow: 0 8px 22px rgba(0, 217, 255, 0.35);
+    z-index: 11;
 }
 
 .project-card::before {
@@ -1950,9 +2025,22 @@ p {
         height: auto;
     }
 
+    .project-card-current {
+        grid-template-columns: 1fr;
+        min-height: 0;
+    }
+
     .project-card-large .project-image {
         min-height: 220px;
         aspect-ratio: auto;
+    }
+
+    .project-card-current .project-image {
+        min-height: 230px;
+    }
+
+    .project-card-current .project-title {
+        font-size: 1.65rem;
     }
 
     .projects-subtitle {

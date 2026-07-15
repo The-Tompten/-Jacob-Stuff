@@ -1,9 +1,8 @@
-[
+﻿[
     {
         "title": "Lego (+ Rokenbok) Design Competition",
         "description": "Me and a close friend entered a lego design contest where we built a city scape out of lego and rokenbok pieces. It had a Rockenblock monorail!",
         "year": "2024",
-        "age": 9,
         "category": "creative",
         "image": "assets/Photos/Legos.jpg",
         "links": [
@@ -11,7 +10,9 @@
                 "title": "Website",
                 "url": "https://www.brattleboromuseum.org/2020/10/07/13th-annual-lego-contest-exhibit/"
             }
-        ]
+        ],
+        "age": 9,
+        "startDate": "2024"
     },
     {
         "title": "My First Invention: The Butter-Sauna",
@@ -27,7 +28,7 @@
             }
         ]
     },
-        {
+    {
         "title": "FTC 20099 2021 Robot - Robot Of Unusual Size (R.O.U.S.)",
         "description": "ROUS represented Team Inconcievable's FTC team's Rookie year. It ended up placing second in the state championship and being alliance captain #2.",
         "year": "2021",
@@ -43,7 +44,7 @@
     },
     {
         "title": "FRC 2022 Robot - Miracle Max",
-        "description": "Miracle Max marked Team 1729's recovery year, bringing valuable lessons and challenges that we overcame together. Through persistence and determination, we achieved our first-ever qualifying competition win—a milestone that demonstrated our team's resilience and growth.",
+        "description": "Miracle Max marked Team 1729's recovery year, bringing valuable lessons and challenges that we overcame together. Through persistence and determination, we achieved our first-ever qualifying competition winâ€”a milestone that demonstrated our team's resilience and growth.",
         "year": "2022",
         "age": "11",
         "category": "robotics",
@@ -93,7 +94,7 @@
     },
     {
         "title": "FRC 2023 Robot - Sylvester",
-        "description": "Sylvester is Team 1729’s versatile 2023 robot, built for precise cone and cube handling, stable scoring at multiple levels, and dependable autonomous paths that strengthened overall match consistency.",
+        "description": "Sylvester is Team 1729â€™s versatile 2023 robot, built for precise cone and cube handling, stable scoring at multiple levels, and dependable autonomous paths that strengthened overall match consistency.",
         "year": "2023",
         "age": "12",
         "category": "robotics",
@@ -248,7 +249,7 @@
     },
     {
         "title": "FRC 2024 Robot - Rev (The Revenge)",
-        "description": "REV is Team 1729’s high-speed 2024 robot, designed for consistent scoring, dependable intake performance, and smooth autonomous routines that maximized efficiency and reliability in every match.",
+        "description": "REV is Team 1729â€™s high-speed 2024 robot, designed for consistent scoring, dependable intake performance, and smooth autonomous routines that maximized efficiency and reliability in every match.",
         "year": "2024",
         "age": "13",
         "category": "robotics",
@@ -453,8 +454,8 @@
         "title": "Wyatt Haunt Website",
         "description": "I designed and developed the website for my haunted house, Wyatt Haunt. This year was themed as 'Forest of Fears.'",
         "year": "2025",
-        "age": 15,        
-        "category": "halloween",        
+        "age": 15,
+        "category": "halloween",
         "image": "assets/Photos/HalloweenWeb.jpg",
         "links": [
             {
@@ -481,7 +482,8 @@
                 "title": "Youtube Video",
                 "url": "https://youtu.be/EuYma_cU_fc"
             }
-        ]
+        ],
+        "startDate": "2025"
     },
     {
         "title": "FTC Design Project",
@@ -561,10 +563,10 @@
     },
     {
         "title": "1729 Team Inconcievable Website",
-        "description": "I designed and developed the website for FRC Team 1729 Inconceivable, showcasing our team’s achievements, projects, and values.",
+        "description": "I designed and developed the website for FRC Team 1729 Inconceivable, showcasing our teamâ€™s achievements, projects, and values.",
         "year": "2025",
-        "age": 15,        
-        "category": "robotics",        
+        "age": 15,
+        "category": "robotics",
         "image": "assets/Photos/Website.jpg",
         "links": [
             {
@@ -577,6 +579,7 @@
         "title": "FRC 1729 2026 Competition Robot - GLADOS",
         "description": "This year I designed and helped build 1729's 2026 Competition Robot, GLADOS. I also Drove the robot durig competitions. GLADOS has a 365 degree turret and can shoot 10+ balls per second, it can hold over 100 feul, and de-beach itself.",
         "year": "2026",
+        "startDate": "Jan 2026",
         "age": 15,
         "size": "large",
         "page": "main-projects/glados-2026.html",
@@ -605,7 +608,6 @@
         "title": "The Worlds First FRC Drum Turret",
         "description": "I designed a drum turret for FRC in the offseason that can rotate 360 degrees and shoot up to 3 balls at once. it is powered by 6 kraken x60s",
         "year": "2026",
-        "age": 15,
         "category": "robotics",
         "image": "assets/Photos/DrumTurret.png",
         "links": [
@@ -613,6 +615,33 @@
                 "title": "CAD",
                 "url": "https://cad.onshape.com/documents/3bb1e0e260d5e2a0a596aac6/w/271019eee8e2ace68104ca2e/e/c4a853c879e2796553162ffe"
             }
-        ]
+        ],
+        "age": 15,
+        "startDate": "2026"
+    },
+    {
+        "title": "GROW-Bot | Garden Robot for Organic Work",
+        "description": "A robotic system for autonomously watering, harvesting, weeding, and tending to your garden. I am being funded for this project through Hackclub.",
+        "year": "2026",
+        "category": "robotics",
+        "image": "assets\\Photos\\GROW.png",
+        "links": [
+            {
+                "title": "Full GROW-Bot CAD",
+                "url": "https://cad.onshape.com/documents/390abd1fb5f3896f5522f133/w/4378e4e51b861d7af005b686/e/d9ffc3eff3a3ba5bd18e5954?configuration=List_fWPcxztIGPtmcQ%3DGROW_Bot_W__Greenhouse___GardenBed"
+            },
+            {
+                "title": "Stardance Hackclub Devlogs",
+                "url": "https://stardance.hackclub.com/projects/3245"
+            },
+            {
+                "title": "Slack Channel (#grow-bot)",
+                "url": "https://hackclub.enterprise.slack.com/archives/C0B7QL83DNY"
+            }
+        ],
+        "age": 16,
+        "startDate": "Jun 2026",
+        "current": true,
+        "size": "large"
     }
 ]

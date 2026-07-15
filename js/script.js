@@ -378,9 +378,13 @@ function getProjectSize(project) {
     return project.size === 'large' ? 'large' : 'small';
 }
 
-function createProjectCard(project, { isLarge = false, hidden = false } = {}) {
+function isCurrentProject(project) {
+    return project.current === true;
+}
+
+function createProjectCard(project, { isLarge = false, isCurrent = false, hidden = false } = {}) {
     const projectCard = document.createElement('div');
-    projectCard.className = `project-card ${isLarge ? 'project-card-large' : 'project-card-small'}`;
+    projectCard.className = `project-card ${isLarge ? 'project-card-large' : 'project-card-small'}${isCurrent ? ' project-card-current' : ''}`;
     projectCard.setAttribute('data-aos', 'fade-up');
     projectCard.style.cursor = 'pointer';
 
@@ -393,11 +397,12 @@ function createProjectCard(project, { isLarge = false, hidden = false } = {}) {
             ${project.image ? `<img src="${project.image}" alt="${project.title}" class="project-image-img">` : `<div class="project-image-placeholder">
                 ${getProjectIcon(project.title)}
             </div>`}
+            ${isCurrent ? `<span class="current-project-badge">Current Project</span>` : ''}
             ${project.category ? `<span class="project-category-tag">${project.category.split('-').map(word => word.charAt(0).toUpperCase() + word.slice(1)).join(' ')}</span>` : ''}
         </div>
         <div class="project-content">
             <div class="project-meta">
-                <span class="project-year">${project.year}${project.age ? ` • Age ${project.age}` : ''}</span>
+                <span class="project-year">${project.year}${project.startDate ? ` • Started ${project.startDate}` : ''}${project.age ? ` • Age ${project.age}` : ''}</span>
             </div>
             <h3 class="project-title">${project.title}</h3>
             <p class="project-description">${project.description}</p>
@@ -421,7 +426,7 @@ function createProjectCard(project, { isLarge = false, hidden = false } = {}) {
     });
 
     projectCard.addEventListener('click', () => {
-        if (isLarge && project.page) {
+        if ((isLarge || isCurrent) && project.page) {
             window.location.href = project.page;
             return;
         }
@@ -435,10 +440,13 @@ function createProjectCard(project, { isLarge = false, hidden = false } = {}) {
 
 // Display projects
 function displayProjects(projects, startExpanded = false) {
+    const currentProjectSection = document.getElementById('current-project-section');
+    const currentProjectGrid = document.getElementById('current-project-grid');
     const mainProjectsSection = document.getElementById('main-projects-section');
     const mainProjectsGrid = document.getElementById('main-projects-grid');
     const projectsGrid = document.getElementById('projects-grid');
 
+    currentProjectGrid.innerHTML = '';
     mainProjectsGrid.innerHTML = '';
     projectsGrid.innerHTML = '';
     
@@ -451,8 +459,25 @@ function displayProjects(projects, startExpanded = false) {
     
     // Invert file order so entries you list first appear at the bottom of the grid
     const reversedProjects = [...projects].reverse();
-    const mainProjects = reversedProjects.filter(project => getProjectSize(project) === 'large');
-    const smallProjects = reversedProjects.filter(project => getProjectSize(project) !== 'large');
+    const currentProjects = reversedProjects.filter(project => isCurrentProject(project));
+    if (currentProjects.length > 1) {
+        console.warn('Multiple current projects found; displaying the most recent one.');
+    }
+
+    const currentProject = currentProjects[0] || null;
+    const archiveProjects = currentProject
+        ? reversedProjects.filter(project => project !== currentProject)
+        : reversedProjects;
+    const mainProjects = archiveProjects.filter(project => getProjectSize(project) === 'large');
+    const smallProjects = archiveProjects.filter(project => getProjectSize(project) !== 'large');
+
+    if (currentProject) {
+        currentProjectSection.style.display = 'block';
+        const currentCard = createProjectCard(currentProject, { isLarge: true, isCurrent: true });
+        currentProjectGrid.appendChild(currentCard);
+    } else {
+        currentProjectSection.style.display = 'none';
+    }
 
     if (mainProjects.length > 0) {
         mainProjectsSection.style.display = 'block';
